@@ -149,4 +149,35 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get unexpectedError =>
       'An unexpected error occurred. Please try again.';
+
+  @override
+  String get quickActions => 'Quick Actions';
+
+  @override
+  String get startWorkout => 'Start Workout';
+
+  @override
+  String get beginTraining => 'Begin your training';
+
+  @override
+  String get viewProgress => 'View Progress';
+
+  @override
+  String get trackStats => 'Track your stats';
+
+  @override
+  String get schedule => 'Schedule';
+
+  @override
+  String get planWeek => 'Plan your week';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get customizeApp => 'Customize app';
+
+  @override
+  String get aiCoachReady =>
+      'Your AI Coach is ready to help you achieve your goals!';
 }

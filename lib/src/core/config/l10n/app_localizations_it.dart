@@ -150,4 +150,35 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get unexpectedError =>
       'Si è verificato un errore imprevisto. Riprova.';
+
+  @override
+  String get quickActions => 'Azioni Rapide';
+
+  @override
+  String get startWorkout => 'Inizia Allenamento';
+
+  @override
+  String get beginTraining => 'Inizia il tuo allenamento';
+
+  @override
+  String get viewProgress => 'Visualizza Progressi';
+
+  @override
+  String get trackStats => 'Traccia le tue statistiche';
+
+  @override
+  String get schedule => 'Programma';
+
+  @override
+  String get planWeek => 'Pianifica la tua settimana';
+
+  @override
+  String get settings => 'Impostazioni';
+
+  @override
+  String get customizeApp => 'Personalizza app';
+
+  @override
+  String get aiCoachReady =>
+      'Il tuo AI Coach è pronto ad aiutarti a raggiungere i tuoi obiettivi!';
 }

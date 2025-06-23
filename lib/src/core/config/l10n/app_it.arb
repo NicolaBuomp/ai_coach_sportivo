@@ -68,5 +68,15 @@
   "accountCreatedSuccessfully": "Account creato con successo! Controlla la tua email per verificare il tuo account.",
   "invalidEmailOrPassword": "Email o password non validi",
   "emailAlreadyExists": "Esiste già un account con questa email",
-  "unexpectedError": "Si è verificato un errore imprevisto. Riprova."
+  "unexpectedError": "Si è verificato un errore imprevisto. Riprova.",
+  "quickActions": "Azioni Rapide",
+  "startWorkout": "Inizia Allenamento",
+  "beginTraining": "Inizia il tuo allenamento",
+  "viewProgress": "Visualizza Progressi",
+  "trackStats": "Traccia le tue statistiche",
+  "schedule": "Programma",
+  "planWeek": "Pianifica la tua settimana",
+  "settings": "Impostazioni",
+  "customizeApp": "Personalizza app",
+  "aiCoachReady": "Il tuo AI Coach è pronto ad aiutarti a raggiungere i tuoi obiettivi!"
 }

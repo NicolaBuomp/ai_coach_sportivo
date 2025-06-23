@@ -349,6 +349,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'An unexpected error occurred. Please try again.'**
   String get unexpectedError;
+
+  /// No description provided for @quickActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Actions'**
+  String get quickActions;
+
+  /// No description provided for @startWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Workout'**
+  String get startWorkout;
+
+  /// No description provided for @beginTraining.
+  ///
+  /// In en, this message translates to:
+  /// **'Begin your training'**
+  String get beginTraining;
+
+  /// No description provided for @viewProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'View Progress'**
+  String get viewProgress;
+
+  /// No description provided for @trackStats.
+  ///
+  /// In en, this message translates to:
+  /// **'Track your stats'**
+  String get trackStats;
+
+  /// No description provided for @schedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get schedule;
+
+  /// No description provided for @planWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan your week'**
+  String get planWeek;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @customizeApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Customize app'**
+  String get customizeApp;
+
+  /// No description provided for @aiCoachReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Your AI Coach is ready to help you achieve your goals!'**
+  String get aiCoachReady;
 }
 
 class _AppLocalizationsDelegate

@@ -68,5 +68,15 @@
   "accountCreatedSuccessfully": "Account created successfully! Please check your email to verify your account.",
   "invalidEmailOrPassword": "Invalid email or password",
   "emailAlreadyExists": "An account with this email already exists",
-  "unexpectedError": "An unexpected error occurred. Please try again."
+  "unexpectedError": "An unexpected error occurred. Please try again.",
+  "quickActions": "Quick Actions",
+  "startWorkout": "Start Workout",
+  "beginTraining": "Begin your training",
+  "viewProgress": "View Progress",
+  "trackStats": "Track your stats",
+  "schedule": "Schedule",
+  "planWeek": "Plan your week",
+  "settings": "Settings",
+  "customizeApp": "Customize app",
+  "aiCoachReady": "Your AI Coach is ready to help you achieve your goals!"
 }

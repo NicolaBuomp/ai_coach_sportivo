@@ -1,4 +1,5 @@
 import 'package:ai_coach_sportivo/src/core/config/router/app_router.dart';
+import 'package:ai_coach_sportivo/src/core/config/l10n/locale_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -16,6 +17,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
     final router = ref.watch(routerProvider);
+    final locale = ref.watch(localeProvider);
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
@@ -28,10 +30,10 @@ class MyApp extends ConsumerWidget {
       title: 'AI Coach Sportivo',
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
 
-      // Configurazione della localizzazione standard
+      // Configurazione della localizzazione
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-
+      locale: locale, // Usa il locale dal provider
       // Configurazione del tema
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
