@@ -1,7 +1,3 @@
-Certo! Ecco una bozza di file README per la tua app "AI Coach Sportivo", strutturata per essere completa e facile da navigare.
-
----
-
 # 🚀 AI Coach Sportivo - Il Tuo Allenatore Virtuale Intelligente
 
 Benvenuto nel repository dell'app "AI Coach Sportivo", il tuo compagno di allenamento personalizzato basato sull'intelligenza artificiale! Questa piattaforma mobile multi-piattaforma (iOS/Android), sviluppata in **Flutter** con un backend robusto basato su **Supabase**, è progettata per corridori amatoriali e semi-professionisti. Il suo obiettivo è fornire un coaching intelligente e adattivo, integrando i dati di salute dell'utente per offrire feedback e piani di allenamento ottimizzati, garantendo al contempo la persistenza, sincronizzazione e sicurezza di tutti i dati.
