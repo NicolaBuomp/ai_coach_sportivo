@@ -1,0 +1,59 @@
+{
+  "appTitle": "AI Coach Sportivo",
+  "welcomeBack": "Bentornato",
+  "signInToAccount": "Accedi al tuo account AI Coach",
+  "createAccount": "Crea Account",
+  "joinAiCoach": "Unisciti ad AI Coach oggi",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Conferma Password",
+  "signIn": "Accedi",
+  "signUp": "Registrati",
+  "alreadyHaveAccount": "Hai già un account? Accedi",
+  "dontHaveAccount": "Non hai un account? Registrati",
+  "verifyYourEmail": "Verifica la tua Email",
+  "emailSentTo": "Abbiamo inviato un'email di verifica a {email}",
+  "@emailSentTo": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "checkEmailAndClick": "Controlla la tua email e clicca sul link di verifica per continuare",
+  "resendEmail": "Invia di Nuovo",
+  "checkStatus": "Controlla Stato",
+  "emailVerifiedSuccessfully": "Email verificata con successo! Reindirizzamento...",
+  "pleaseEnterEmail": "Inserisci la tua email",
+  "pleaseEnterValidEmail": "Inserisci un'email valida",
+  "pleaseEnterPassword": "Inserisci la tua password",
+  "passwordMinLength": "La password deve essere di almeno 6 caratteri",
+  "pleaseConfirmPassword": "Conferma la tua password",
+  "passwordsDoNotMatch": "Le password non coincidono",
+  "loginFailed": "Login fallito: {error}",
+  "@loginFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "signUpFailed": "Registrazione fallita: {error}",
+  "@signUpFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "pleaseVerifyEmail": "Verifica prima il tuo indirizzo email.",
+  "emailNotVerified": "Email non ancora verificata. Controlla la tua email.",
+  "failedToResendEmail": "Impossibile reinviare l'email: {error}",
+  "@failedToResendEmail": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  }
+}
