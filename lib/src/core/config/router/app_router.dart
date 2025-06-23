@@ -3,19 +3,27 @@ import 'package:ai_coach_sportivo/src/core/config/router/route_name.dart';
 import 'package:ai_coach_sportivo/src/features/auth/data/auth_repository.dart';
 import 'package:ai_coach_sportivo/src/features/auth/presentation/views/login_screen.dart';
 import 'package:ai_coach_sportivo/src/features/auth/presentation/views/signup_screen.dart';
+import 'package:ai_coach_sportivo/src/features/calendar/presentation/views/calendar_screen.dart';
 import 'package:ai_coach_sportivo/src/features/home/presentation/views/home_screen.dart';
 import 'package:ai_coach_sportivo/src/features/onboarding/data/onboarding_repository.dart';
 import 'package:ai_coach_sportivo/src/features/onboarding/presentation/views/onboarding_screen.dart';
+import 'package:ai_coach_sportivo/src/features/profile/presentation/views/profile_screen.dart';
+import 'package:ai_coach_sportivo/src/features/training/presentation/views/training_screen.dart';
+import 'package:ai_coach_sportivo/src/shared/widgets/main_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
+final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   final onboardingRepository = ref.watch(onboardingRepositoryProvider);
 
   return GoRouter(
-    initialLocation: onboardingRoute,
+    navigatorKey: _rootNavigatorKey,
+    initialLocation: '/',
     debugLogDiagnostics: true,
     refreshListenable: GoRouterRefreshNotifier(authRepository.authStateChanges),
     redirect: (context, state) {
@@ -28,20 +36,25 @@ final routerProvider = Provider<GoRouter>((ref) {
       }
 
       final isLoggedIn = authRepository.currentUser != null;
-      final onLoginPage = state.matchedLocation == loginRoute;
-      final onSignUpPage = state.matchedLocation == signUpRoute;
+      final onAuthPages =
+          state.matchedLocation == loginRoute ||
+          state.matchedLocation == signUpRoute;
 
       // Se l'onboarding è completo e l'utente è sulla pagina di onboarding,
       // reindirizzalo al login.
-      if (onOnboardingPage) {
+      if (onboardingComplete && onOnboardingPage) {
         return loginRoute;
       }
 
-      if (!isLoggedIn && !onLoginPage && !onSignUpPage) {
+      if (!isLoggedIn && !onAuthPages) {
         return loginRoute;
       }
 
-      if (isLoggedIn && (onLoginPage || onSignUpPage)) {
+      if (isLoggedIn && onAuthPages) {
+        return homeRoute;
+      }
+
+      if (isLoggedIn && state.matchedLocation == '/') {
         return homeRoute;
       }
 
@@ -54,11 +67,6 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const OnboardingScreen(),
       ),
       GoRoute(
-        path: homeRoute,
-        name: homeRoute,
-        builder: (context, state) => const HomeScreen(),
-      ),
-      GoRoute(
         path: loginRoute,
         name: loginRoute,
         builder: (context, state) => const LoginScreen(),
@@ -67,6 +75,34 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: signUpRoute,
         name: signUpRoute,
         builder: (context, state) => const SignUpScreen(),
+      ),
+      ShellRoute(
+        navigatorKey: _shellNavigatorKey,
+        builder: (context, state, child) {
+          return MainScaffold(child: child);
+        },
+        routes: [
+          GoRoute(
+            path: homeRoute,
+            name: homeRoute,
+            builder: (context, state) => const HomeScreen(),
+          ),
+          GoRoute(
+            path: trainingRoute,
+            name: trainingRoute,
+            builder: (context, state) => const TrainingScreen(),
+          ),
+          GoRoute(
+            path: calendarRoute,
+            name: calendarRoute,
+            builder: (context, state) => const CalendarScreen(),
+          ),
+          GoRoute(
+            path: profileRoute,
+            name: profileRoute,
+            builder: (context, state) => const ProfileScreen(),
+          ),
+        ],
       ),
     ],
   );

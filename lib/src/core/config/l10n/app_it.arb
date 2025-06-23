@@ -78,5 +78,12 @@
   "planWeek": "Pianifica la tua settimana",
   "settings": "Impostazioni",
   "customizeApp": "Personalizza app",
-  "aiCoachReady": "Il tuo AI Coach è pronto ad aiutarti a raggiungere i tuoi obiettivi!"
+  "aiCoachReady": "Il tuo AI Coach è pronto ad aiutarti a raggiungere i tuoi obiettivi!",
+  "home": "Home",
+  "training": "Allenamento",
+  "calendar": "Calendario",
+  "profile": "Profilo",
+  "logout": "Logout",
+  "changeTheme": "Cambia Tema",
+  "changeLanguage": "Cambia Lingua"
 }

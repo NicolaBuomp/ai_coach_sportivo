@@ -180,4 +180,25 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get aiCoachReady =>
       'Your AI Coach is ready to help you achieve your goals!';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get training => 'Training';
+
+  @override
+  String get calendar => 'Calendar';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get changeTheme => 'Change Theme';
+
+  @override
+  String get changeLanguage => 'Change Language';
 }
