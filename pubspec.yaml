@@ -44,7 +44,7 @@ dependencies:
   custom_lint: ^0.7.5
   riverpod_generator: ^2.6.5
   # Per l'integrazione HealthKit/Google Fit
-  health: ^13.1.0
+  # health: ^13.1.0
   # Per la localizzazione
   flutter_localizations:
     sdk: flutter

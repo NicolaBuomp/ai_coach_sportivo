@@ -18,7 +18,13 @@ class MyApp extends ConsumerWidget {
     final router = ref.watch(routerProvider);
 
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      // Configurazione del router
       routerConfig: router,
+
+      // Generazione del titolo dell'applicazione
+      // Utilizza AppLocalizations per supportare la localizzazione dinamica
+      // in base alla lingua corrente dell'utente.
       title: 'AI Coach Sportivo',
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
 
@@ -30,28 +36,6 @@ class MyApp extends ConsumerWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
-    );
-  }
-}
-
-class HomePage extends ConsumerWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
-    return Scaffold(
-      appBar: AppBar(title: Text(l10n.appTitle)),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(l10n.welcomeBack),
-            const SizedBox(height: 20),
-            Text(l10n.dontHaveAccount),
-          ],
-        ),
-      ),
     );
   }
 }

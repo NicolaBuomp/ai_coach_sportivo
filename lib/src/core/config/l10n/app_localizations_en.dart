@@ -105,4 +105,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String failedToResendEmail(String error) {
     return 'Failed to resend email: $error';
   }
+
+  @override
+  String get onboardingTitle1 => 'Welcome to AI Coach';
+
+  @override
+  String get onboardingDescription1 =>
+      'Your personal AI-powered coach to achieve your goals.';
+
+  @override
+  String get onboardingTitle2 => 'Track Your Progress';
+
+  @override
+  String get onboardingDescription2 =>
+      'Monitor your performance, analyze data, and improve constantly.';
+
+  @override
+  String get onboardingTitle3 => 'Personalized Plans';
+
+  @override
+  String get onboardingDescription3 =>
+      'Receive workout plans tailored to your needs and level.';
+
+  @override
+  String get skip => 'Skip';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get getStarted => 'Get Started';
 }

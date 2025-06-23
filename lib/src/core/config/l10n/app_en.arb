@@ -55,5 +55,14 @@
         "type": "String"
       }
     }
-  }
+  },
+  "onboardingTitle1": "Welcome to AI Coach",
+  "onboardingDescription1": "Your personal AI-powered coach to achieve your goals.",
+  "onboardingTitle2": "Track Your Progress",
+  "onboardingDescription2": "Monitor your performance, analyze data, and improve constantly.",
+  "onboardingTitle3": "Personalized Plans",
+  "onboardingDescription3": "Receive workout plans tailored to your needs and level.",
+  "skip": "Skip",
+  "next": "Next",
+  "getStarted": "Get Started"
 }

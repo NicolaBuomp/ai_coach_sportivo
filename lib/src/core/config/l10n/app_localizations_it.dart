@@ -106,4 +106,34 @@ class AppLocalizationsIt extends AppLocalizations {
   String failedToResendEmail(String error) {
     return 'Impossibile reinviare l\'email: $error';
   }
+
+  @override
+  String get onboardingTitle1 => 'Benvenuto in AI Coach';
+
+  @override
+  String get onboardingDescription1 =>
+      'Il tuo allenatore personale basato sull\'intelligenza artificiale per raggiungere i tuoi obiettivi.';
+
+  @override
+  String get onboardingTitle2 => 'Traccia i Tuoi Progressi';
+
+  @override
+  String get onboardingDescription2 =>
+      'Monitora le tue performance, analizza i dati e migliora costantemente.';
+
+  @override
+  String get onboardingTitle3 => 'Piani Personalizzati';
+
+  @override
+  String get onboardingDescription3 =>
+      'Ricevi piani di allenamento su misura per le tue esigenze e il tuo livello.';
+
+  @override
+  String get skip => 'Salta';
+
+  @override
+  String get next => 'Avanti';
+
+  @override
+  String get getStarted => 'Inizia';
 }

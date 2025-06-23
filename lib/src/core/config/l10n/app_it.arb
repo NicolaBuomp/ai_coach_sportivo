@@ -55,5 +55,14 @@
         "type": "String"
       }
     }
-  }
+  },
+  "onboardingTitle1": "Benvenuto in AI Coach",
+  "onboardingDescription1": "Il tuo allenatore personale basato sull'intelligenza artificiale per raggiungere i tuoi obiettivi.",
+  "onboardingTitle2": "Traccia i Tuoi Progressi",
+  "onboardingDescription2": "Monitora le tue performance, analizza i dati e migliora costantemente.",
+  "onboardingTitle3": "Piani Personalizzati",
+  "onboardingDescription3": "Ricevi piani di allenamento su misura per le tue esigenze e il tuo livello.",
+  "skip": "Salta",
+  "next": "Avanti",
+  "getStarted": "Inizia"
 }
