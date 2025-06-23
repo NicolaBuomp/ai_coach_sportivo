@@ -64,5 +64,9 @@
   "onboardingDescription3": "Ricevi piani di allenamento su misura per le tue esigenze e il tuo livello.",
   "skip": "Salta",
   "next": "Avanti",
-  "getStarted": "Inizia"
+  "getStarted": "Inizia",
+  "accountCreatedSuccessfully": "Account creato con successo! Controlla la tua email per verificare il tuo account.",
+  "invalidEmailOrPassword": "Email o password non validi",
+  "emailAlreadyExists": "Esiste già un account con questa email",
+  "unexpectedError": "Si è verificato un errore imprevisto. Riprova."
 }

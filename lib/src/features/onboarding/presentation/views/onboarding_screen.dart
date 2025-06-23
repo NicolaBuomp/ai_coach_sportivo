@@ -1,35 +1,19 @@
 import 'package:ai_coach_sportivo/src/core/config/l10n/app_localizations.dart';
 import 'package:ai_coach_sportivo/src/core/config/router/route_name.dart';
-import 'package:ai_coach_sportivo/src/features/onboarding/data/onboarding_repository.dart';
+import 'package:ai_coach_sportivo/src/features/onboarding/presentation/viewmodel/onboarding_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class OnboardingScreen extends ConsumerStatefulWidget {
+class OnboardingScreen extends ConsumerWidget {
   const OnboardingScreen({super.key});
 
   @override
-  ConsumerState<OnboardingScreen> createState() => _OnboardingScreenState();
-}
-
-class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
-  final PageController _pageController = PageController();
-  int _currentPage = 0;
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
-  void _onOnboardingComplete() {
-    ref.read(onboardingRepositoryProvider).setOnboardingComplete();
-    context.goNamed(loginRoute);
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final state = ref.watch(onboardingProvider);
+    final notifier = ref.read(onboardingProvider.notifier);
+
     final onboardingPages = [
       _OnboardingPage(
         title: l10n.onboardingTitle1,
@@ -48,68 +32,85 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       ),
     ];
 
-    final isLastPage = _currentPage == onboardingPages.length - 1;
-
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
+            // Skip button
             Align(
               alignment: Alignment.topRight,
-              child: TextButton(
-                onPressed: _onOnboardingComplete,
-                child: Text(l10n.skip),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextButton(
+                  onPressed: () async {
+                    await notifier.completeOnboarding();
+                    if (context.mounted) {
+                      context.goNamed(loginRoute);
+                    }
+                  },
+                  child: Text(l10n.skip),
+                ),
               ),
             ),
+
+            // PageView
             Expanded(
               child: PageView.builder(
-                controller: _pageController,
+                controller: state.pageController,
                 itemCount: onboardingPages.length,
-                onPageChanged: (index) {
-                  setState(() {
-                    _currentPage = index;
-                  });
-                },
+                onPageChanged: notifier.onPageChanged,
                 itemBuilder: (context, index) => onboardingPages[index],
               ),
             ),
+
+            // Bottom section con indicatori e bottone
             Padding(
               padding: const EdgeInsets.all(24.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
                 children: [
-                  // Page Indicator
+                  // Page Indicators
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(
                       onboardingPages.length,
                       (index) => AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
                         margin: const EdgeInsets.symmetric(horizontal: 4),
                         height: 8,
-                        width: _currentPage == index ? 24 : 8,
+                        width: state.currentPage == index ? 24 : 8,
                         decoration: BoxDecoration(
-                          color: _currentPage == index
+                          color: state.currentPage == index
                               ? Theme.of(context).colorScheme.primary
-                              : Theme.of(context).colorScheme.secondary,
+                              : Theme.of(context).colorScheme.outline,
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                     ),
                   ),
+
+                  const SizedBox(height: 24),
+
                   // Next/Get Started Button
-                  Expanded(
+                  SizedBox(
+                    width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {
-                        if (isLastPage) {
-                          _onOnboardingComplete();
+                      onPressed: () async {
+                        if (notifier.isLastPage) {
+                          await notifier.completeOnboarding();
+                          if (context.mounted) {
+                            context.goNamed(loginRoute);
+                          }
                         } else {
-                          _pageController.nextPage(
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.ease,
-                          );
+                          await notifier.goToNextPage();
                         }
                       },
-                      child: Text(isLastPage ? l10n.getStarted : l10n.next),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                      ),
+                      child: Text(
+                        notifier.isLastPage ? l10n.getStarted : l10n.next,
+                        style: const TextStyle(fontSize: 16),
+                      ),
                     ),
                   ),
                 ],
@@ -144,13 +145,17 @@ class _OnboardingPage extends StatelessWidget {
           const SizedBox(height: 40),
           Text(
             title,
-            style: Theme.of(context).textTheme.headlineSmall,
+            style: Theme.of(
+              context,
+            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),
           Text(
             description,
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
             textAlign: TextAlign.center,
           ),
         ],

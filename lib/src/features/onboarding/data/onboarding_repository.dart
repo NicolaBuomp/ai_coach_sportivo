@@ -16,7 +16,6 @@ class OnboardingRepository {
   }
 }
 
-// 1. Trasforma in un Provider standard che deve essere sovrascritto.
 final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
   throw UnimplementedError(
     'SharedPreferencesProvider non è stato inizializzato',
@@ -24,7 +23,6 @@ final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
 });
 
 final onboardingRepositoryProvider = Provider<OnboardingRepository>((ref) {
-  // 2. Ora questa chiamata è sicura e sincrona.
   final prefs = ref.watch(sharedPreferencesProvider);
   return OnboardingRepository(prefs);
 });

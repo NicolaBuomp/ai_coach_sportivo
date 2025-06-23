@@ -9,6 +9,25 @@ class AuthRepository {
   Stream<AuthState> get authStateChanges => _client.auth.onAuthStateChange;
 
   User? get currentUser => _client.auth.currentUser;
+
+  Future<AuthResponse> signIn(String email, String password) async {
+    return await _client.auth.signInWithPassword(
+      email: email,
+      password: password,
+    );
+  }
+
+  Future<AuthResponse> signUp(String email, String password) async {
+    return await _client.auth.signUp(email: email, password: password);
+  }
+
+  Future<void> signOut() async {
+    await _client.auth.signOut();
+  }
+
+  Future<void> resendConfirmation(String email) async {
+    await _client.auth.resend(type: OtpType.signup, email: email);
+  }
 }
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {

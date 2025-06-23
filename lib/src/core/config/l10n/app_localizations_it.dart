@@ -136,4 +136,18 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get getStarted => 'Inizia';
+
+  @override
+  String get accountCreatedSuccessfully =>
+      'Account creato con successo! Controlla la tua email per verificare il tuo account.';
+
+  @override
+  String get invalidEmailOrPassword => 'Email o password non validi';
+
+  @override
+  String get emailAlreadyExists => 'Esiste già un account con questa email';
+
+  @override
+  String get unexpectedError =>
+      'Si è verificato un errore imprevisto. Riprova.';
 }

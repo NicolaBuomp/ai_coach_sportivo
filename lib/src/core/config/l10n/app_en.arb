@@ -64,5 +64,9 @@
   "onboardingDescription3": "Receive workout plans tailored to your needs and level.",
   "skip": "Skip",
   "next": "Next",
-  "getStarted": "Get Started"
+  "getStarted": "Get Started",
+  "accountCreatedSuccessfully": "Account created successfully! Please check your email to verify your account.",
+  "invalidEmailOrPassword": "Invalid email or password",
+  "emailAlreadyExists": "An account with this email already exists",
+  "unexpectedError": "An unexpected error occurred. Please try again."
 }
