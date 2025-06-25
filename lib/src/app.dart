@@ -1,10 +1,10 @@
 import 'package:ai_coach_sportivo/src/core/config/router/app_router.dart';
 import 'package:ai_coach_sportivo/src/core/config/l10n/locale_provider.dart';
+import 'package:ai_coach_sportivo/src/core/config/theme/app_theme.dart';
+import 'package:ai_coach_sportivo/src/core/config/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:ai_coach_sportivo/src/core/config/theme/app_theme.dart';
-import 'package:ai_coach_sportivo/src/core/config/l10n/app_localizations.dart';
 
 final supabaseClientProvider = Provider<SupabaseClient>((ref) {
   return Supabase.instance.client;

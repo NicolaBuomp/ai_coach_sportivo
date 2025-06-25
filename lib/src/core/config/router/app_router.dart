@@ -9,6 +9,9 @@ import 'package:ai_coach_sportivo/src/features/home/presentation/views/home_scre
 import 'package:ai_coach_sportivo/src/features/onboarding/data/onboarding_repository.dart';
 import 'package:ai_coach_sportivo/src/features/onboarding/presentation/views/onboarding_screen.dart';
 import 'package:ai_coach_sportivo/src/features/plans/presentation/views/plans_screen.dart';
+import 'package:ai_coach_sportivo/src/features/profile/data/repositories/profile_repository.dart';
+import 'package:ai_coach_sportivo/src/features/profile/presentation/views/complete_profile_screen.dart';
+import 'package:ai_coach_sportivo/src/features/profile/presentation/views/edit_profile_screen.dart';
 import 'package:ai_coach_sportivo/src/features/profile/presentation/views/profile_screen.dart';
 import 'package:ai_coach_sportivo/src/features/settings/presentation/views/settings_screen.dart';
 import 'package:ai_coach_sportivo/src/features/training/presentation/views/training_screen.dart';
@@ -23,13 +26,14 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 final routerProvider = Provider<GoRouter>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   final onboardingRepository = ref.watch(onboardingRepositoryProvider);
+  final profileRepository = ref.watch(profileRepositoryProvider);
 
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
     initialLocation: '/',
     debugLogDiagnostics: true,
     refreshListenable: GoRouterRefreshNotifier(authRepository.authStateChanges),
-    redirect: (context, state) {
+    redirect: (context, state) async {
       final onboardingComplete = onboardingRepository.isOnboardingComplete();
       final onOnboardingPage = state.matchedLocation == onboardingRoute;
 
@@ -38,10 +42,13 @@ final routerProvider = Provider<GoRouter>((ref) {
         return onOnboardingPage ? null : onboardingRoute;
       }
 
-      final isLoggedIn = authRepository.currentUser != null;
+      final user = authRepository.currentUser;
+      final isLoggedIn = user != null && user.emailConfirmedAt != null;
       final onAuthPages =
           state.matchedLocation == loginRoute ||
           state.matchedLocation == signUpRoute;
+      final onCompleteProfilePage =
+          state.matchedLocation == completeProfileRoute;
 
       // Se l'onboarding è completo e l'utente è sulla pagina di onboarding,
       // reindirizzalo al login.
@@ -49,16 +56,42 @@ final routerProvider = Provider<GoRouter>((ref) {
         return loginRoute;
       }
 
+      // Se non è autenticato e non è su pagine di auth, vai al login
       if (!isLoggedIn && !onAuthPages) {
         return loginRoute;
       }
 
+      // Se è autenticato e è su pagine di auth, controlla il profilo
       if (isLoggedIn && onAuthPages) {
-        return homeRoute;
+        try {
+          final isProfileComplete = await profileRepository.isProfileComplete();
+          return isProfileComplete ? homeRoute : completeProfileRoute;
+        } catch (e) {
+          return completeProfileRoute;
+        }
       }
 
+      // Se è autenticato e non è sulla pagina di completamento profilo,
+      // verifica che il profilo sia completo
+      if (isLoggedIn && !onCompleteProfilePage) {
+        try {
+          final isProfileComplete = await profileRepository.isProfileComplete();
+          if (!isProfileComplete) {
+            return completeProfileRoute;
+          }
+        } catch (e) {
+          return completeProfileRoute;
+        }
+      }
+
+      // Se va alla root e è autenticato, controlla il profilo
       if (isLoggedIn && state.matchedLocation == '/') {
-        return homeRoute;
+        try {
+          final isProfileComplete = await profileRepository.isProfileComplete();
+          return isProfileComplete ? homeRoute : completeProfileRoute;
+        } catch (e) {
+          return completeProfileRoute;
+        }
       }
 
       return null;
@@ -78,6 +111,11 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: signUpRoute,
         name: signUpRoute,
         builder: (context, state) => const SignUpScreen(),
+      ),
+      GoRoute(
+        path: completeProfileRoute,
+        name: completeProfileRoute,
+        builder: (context, state) => const CompleteProfileScreen(),
       ),
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
@@ -117,11 +155,16 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
         ],
       ),
-      // Settings come route indipendente (fuori dal MainScaffold)
+      // fuori dal MainScaffold
       GoRoute(
         path: settingsRoute,
         name: settingsRoute,
         builder: (context, state) => const SettingsScreen(),
+      ),
+      GoRoute(
+        path: editProfileRoute,
+        name: editProfileRoute,
+        builder: (context, state) => const EditProfileScreen(),
       ),
     ],
   );

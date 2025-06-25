@@ -91,4 +91,32 @@ class AppConstants {
   // === GLASSMORPHISM ===
   static const double defaultBlur = 20.0;
   static const double defaultOpacity = 0.1;
+
+  // === SPORTING LEVELS ===
+  static const List<String> sportingLevels = [
+    'beginner',
+    'intermediate',
+    'advanced',
+    'semi_pro',
+  ];
+
+  // === GENDER OPTIONS ===
+  static const List<String> genderOptions = ['male', 'female', 'other'];
+
+  // === UNIT SYSTEMS ===
+  static const List<String> unitSystems = ['metric', 'imperial'];
+
+  // === UI THEMES ===
+  static const List<String> uiThemes = ['system', 'light', 'dark'];
+
+  // === SUPPORTED LANGUAGES ===
+  static const List<String> supportedLanguages = ['it', 'en'];
+
+  // === PROFILE VALIDATION ===
+  static const int minHeight = 50; // cm
+  static const int maxHeight = 250; // cm
+  static const double minWeight = 20.0; // kg
+  static const double maxWeight = 300.0; // kg
+  static const int minAge = 13; // anni
+  static const int maxAge = 100; // anni
 }

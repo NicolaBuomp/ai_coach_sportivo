@@ -209,6 +209,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profile => 'Profile';
 
   @override
+  String get editProfile => 'Edit Profile';
+
+  @override
   String get logout => 'Logout';
 
   @override
@@ -236,4 +239,165 @@ class AppLocalizationsEn extends AppLocalizations {
   String helloUser(Object user) {
     return 'Hello, $user';
   }
+
+  @override
+  String get personalInformation => 'Personal Information';
+
+  @override
+  String get physicalInformation => 'Physical Information';
+
+  @override
+  String get sportingInformation => 'Sporting Information';
+
+  @override
+  String get preferences => 'Preferences';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get surname => 'Surname';
+
+  @override
+  String get dateOfBirth => 'Date of Birth';
+
+  @override
+  String get gender => 'Gender';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get height => 'Height';
+
+  @override
+  String get weight => 'Weight';
+
+  @override
+  String get heightCm => 'Height (cm)';
+
+  @override
+  String get weightKg => 'Weight (kg)';
+
+  @override
+  String get sportingLevel => 'Sporting Level';
+
+  @override
+  String get beginner => 'Beginner';
+
+  @override
+  String get intermediate => 'Intermediate';
+
+  @override
+  String get advanced => 'Advanced';
+
+  @override
+  String get semiPro => 'Semi-professional';
+
+  @override
+  String get sportPreferences => 'Sport Preferences';
+
+  @override
+  String get unitSystem => 'Unit System';
+
+  @override
+  String get metric => 'Metric';
+
+  @override
+  String get imperial => 'Imperial';
+
+  @override
+  String get uiTheme => 'UI Theme';
+
+  @override
+  String get system => 'System';
+
+  @override
+  String get light => 'Light';
+
+  @override
+  String get dark => 'Dark';
+
+  @override
+  String get preferredLanguage => 'Preferred Language';
+
+  @override
+  String get italian => 'Italiano';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get selectDate => 'Select date';
+
+  @override
+  String get fieldRequired => 'Required field';
+
+  @override
+  String get invalidHeight => 'Invalid height';
+
+  @override
+  String get invalidWeight => 'Invalid weight';
+
+  @override
+  String get saveProfile => 'Save Profile';
+
+  @override
+  String get profileSavedSuccessfully => 'Profile saved successfully!';
+
+  @override
+  String profileSaveError(String error) {
+    return 'Save error: $error';
+  }
+
+  @override
+  String get profileIncomplete => 'Complete your profile to continue';
+
+  @override
+  String get completeProfile => 'Complete Profile';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get saveChanges => 'Save Changes';
+
+  @override
+  String get running => 'Running';
+
+  @override
+  String get cycling => 'Cycling';
+
+  @override
+  String get swimming => 'Swimming';
+
+  @override
+  String get weightlifting => 'Weightlifting';
+
+  @override
+  String get football => 'Football';
+
+  @override
+  String get basketball => 'Basketball';
+
+  @override
+  String get tennis => 'Tennis';
+
+  @override
+  String get volleyball => 'Volleyball';
+
+  @override
+  String get yoga => 'Yoga';
+
+  @override
+  String get pilates => 'Pilates';
+
+  @override
+  String get boxing => 'Boxing';
 }
