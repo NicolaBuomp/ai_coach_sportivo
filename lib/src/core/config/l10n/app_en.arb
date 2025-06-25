@@ -8,7 +8,12 @@
   "password": "Password",
   "confirmPassword": "Confirm Password",
   "signIn": "Sign In",
+  "signInWithGoogle": "Continue with Google",
+  "signInWithApple": "Continue with Apple",
   "signUp": "Sign Up",
+    "signUpWithGoogle": "Sign Up with Google",
+  "signUpWithApple": "Sign Up with Apple",
+  "signUpDescription": "Join AI Coach today and start your journey!",
   "alreadyHaveAccount": "Already have an account? Sign In",
   "dontHaveAccount": "Don't have an account? Sign Up",
   "verifyYourEmail": "Verify Your Email",
@@ -85,5 +90,16 @@
   "profile": "Profile",
   "logout": "Logout",
   "changeTheme": "Change Theme",
-  "changeLanguage": "Change Language"
+  "changeLanguage": "Change Language",
+  "plans": "Plans",
+  "activities": "Activities",
+  "settingsPage": "Settings page.",
+  "yourPlans": "Here your training plans will be shown.",
+  "yourActivities": "Here your activities will be shown.",
+  "helloUser": "Hello, {user}",
+  "@helloUser": {
+    "placeholders": {
+      "user": {}
+    }
+  }
 }

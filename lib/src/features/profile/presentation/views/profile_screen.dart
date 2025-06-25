@@ -5,6 +5,11 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Profile Screen'));
+    return Center(
+      child: ElevatedButton(
+        onPressed: () {},
+        child: const Text('Edit Profile'),
+      ),
+    );
   }
 }

@@ -33,6 +33,12 @@ class OnboardingScreen extends ConsumerWidget {
     ];
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(l10n.appTitle),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -90,27 +96,28 @@ class OnboardingScreen extends ConsumerWidget {
 
                   const SizedBox(height: 24),
 
-                  // Next/Get Started Button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        if (notifier.isLastPage) {
-                          await notifier.completeOnboarding();
-                          if (context.mounted) {
-                            context.goNamed(loginRoute);
-                          }
-                        } else {
-                          await notifier.goToNextPage();
+                  // Pulsante avanti/fine
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(48),
+                    ),
+                    onPressed: () async {
+                      if (state.currentPage == onboardingPages.length - 1) {
+                        await notifier.completeOnboarding();
+                        if (context.mounted) {
+                          context.goNamed(loginRoute);
                         }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                      ),
-                      child: Text(
-                        notifier.isLastPage ? l10n.getStarted : l10n.next,
-                        style: const TextStyle(fontSize: 16),
-                      ),
+                      } else {
+                        state.pageController.nextPage(
+                          duration: const Duration(milliseconds: 400),
+                          curve: Curves.ease,
+                        );
+                      }
+                    },
+                    child: Text(
+                      state.currentPage == onboardingPages.length - 1
+                          ? l10n.getStarted
+                          : l10n.next,
                     ),
                   ),
                 ],

@@ -5,3 +5,6 @@ const String onboardingRoute = '/onboarding';
 const String trainingRoute = '/training';
 const String calendarRoute = '/calendar';
 const String profileRoute = '/profile';
+const String plansRoute = '/piani';
+const String activitiesRoute = '/attivita';
+const String settingsRoute = '/impostazioni';

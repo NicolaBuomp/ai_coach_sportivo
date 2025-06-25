@@ -36,7 +36,23 @@ class AppLocalizationsIt extends AppLocalizations {
   String get signIn => 'Accedi';
 
   @override
+  String get signInWithGoogle => 'Continua con Google';
+
+  @override
+  String get signInWithApple => 'Continua con Apple';
+
+  @override
   String get signUp => 'Registrati';
+
+  @override
+  String get signUpWithGoogle => 'Registrati con Google';
+
+  @override
+  String get signUpWithApple => 'Registrati con Apple';
+
+  @override
+  String get signUpDescription =>
+      'Unisciti ad AI Coach oggi e inizia il tuo percorso!';
 
   @override
   String get alreadyHaveAccount => 'Hai già un account? Accedi';
@@ -202,4 +218,24 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get changeLanguage => 'Cambia Lingua';
+
+  @override
+  String get plans => 'Piani';
+
+  @override
+  String get activities => 'Attività';
+
+  @override
+  String get settingsPage => 'Pagina delle impostazioni.';
+
+  @override
+  String get yourPlans => 'Qui verranno mostrati i tuoi piani di allenamento.';
+
+  @override
+  String get yourActivities => 'Qui verranno mostrate le tue attività.';
+
+  @override
+  String helloUser(Object user) {
+    return 'Ciao, $user';
+  }
 }

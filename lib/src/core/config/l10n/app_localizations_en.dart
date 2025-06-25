@@ -36,7 +36,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signIn => 'Sign In';
 
   @override
+  String get signInWithGoogle => 'Continue with Google';
+
+  @override
+  String get signInWithApple => 'Continue with Apple';
+
+  @override
   String get signUp => 'Sign Up';
+
+  @override
+  String get signUpWithGoogle => 'Sign Up with Google';
+
+  @override
+  String get signUpWithApple => 'Sign Up with Apple';
+
+  @override
+  String get signUpDescription => 'Join AI Coach today and start your journey!';
 
   @override
   String get alreadyHaveAccount => 'Already have an account? Sign In';
@@ -201,4 +216,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get changeLanguage => 'Change Language';
+
+  @override
+  String get plans => 'Plans';
+
+  @override
+  String get activities => 'Activities';
+
+  @override
+  String get settingsPage => 'Settings page.';
+
+  @override
+  String get yourPlans => 'Here your training plans will be shown.';
+
+  @override
+  String get yourActivities => 'Here your activities will be shown.';
+
+  @override
+  String helloUser(Object user) {
+    return 'Hello, $user';
+  }
 }

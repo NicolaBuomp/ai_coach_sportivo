@@ -36,26 +36,34 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
     // Listen to auth state changes for success message
     ref.listen<AuthState>(authProvider, (previous, next) {
-      if (next.successMessage != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
+      if (next.successMessage != null && mounted) {
+        final messenger = ScaffoldMessenger.of(context);
+        final theme = Theme.of(context);
+        final router = GoRouter.of(context);
+
+        messenger.showSnackBar(
           SnackBar(
             content: Text(_getLocalizedMessage(l10n, next.successMessage!)),
-            backgroundColor: Theme.of(context).colorScheme.primary,
+            backgroundColor: theme.colorScheme.primary,
             duration: const Duration(seconds: 4),
           ),
         );
         authNotifier.clearSuccess();
-        // Navigate to login after showing success message
         Future.delayed(const Duration(seconds: 2), () {
           if (mounted) {
-            context.goNamed(loginRoute);
+            router.goNamed(loginRoute);
           }
         });
       }
     });
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.createAccount), centerTitle: true),
+      appBar: AppBar(
+        title: Text(l10n.signUp),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
@@ -72,29 +80,28 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   size: 80,
                   color: Theme.of(context).colorScheme.primary,
                 ),
+                const SizedBox(height: 24),
+
+                // RIMOSSA GlassCard, ora solo contenuto diretto
+                Column(
+                  children: [
+                    Text(
+                      l10n.welcomeBack,
+                      style: Theme.of(context).textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      l10n.signUpDescription,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
 
                 const SizedBox(height: 32),
-
-                // Welcome text
-                Text(
-                  l10n.joinAiCoach,
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-
-                const SizedBox(height: 8),
-
-                Text(
-                  l10n.createAccount,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-
-                const SizedBox(height: 40),
 
                 // Email field
                 TextFormField(
@@ -224,11 +231,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: authState.isLoading ? null : _handleSignUp,
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
                     child: authState.isLoading
                         ? const SizedBox(
                             height: 20,
@@ -241,17 +243,64 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                           ),
                   ),
                 ),
+                const SizedBox(height: 16),
 
-                const SizedBox(height: 24),
-
-                Center(
-                  child: TextButton(
-                    onPressed: () => context.goNamed(loginRoute),
-                    child: Text(l10n.alreadyHaveAccount),
+                // Google Sign Up button
+                SizedBox(
+                  height: 45,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                    ),
+                    onPressed: authState.isLoading ? null : _handleSignUp,
+                    child: authState.isLoading
+                        ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : Text(
+                            l10n.signUpWithGoogle,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSecondary,
+                            ),
+                          ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                // Apple Sign Up button
+                SizedBox(
+                  height: 45,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                    ),
+                    onPressed: authState.isLoading ? null : _handleSignUp,
+                    child: authState.isLoading
+                        ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : Text(
+                            l10n.signUpWithApple,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSecondary,
+                            ),
+                          ),
                   ),
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 16.0),
+          child: TextButton(
+            onPressed: () => context.goNamed(loginRoute),
+            child: Text(l10n.alreadyHaveAccount),
           ),
         ),
       ),

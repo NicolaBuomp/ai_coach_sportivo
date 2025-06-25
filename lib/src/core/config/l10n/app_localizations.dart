@@ -152,11 +152,41 @@ abstract class AppLocalizations {
   /// **'Sign In'**
   String get signIn;
 
+  /// No description provided for @signInWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get signInWithGoogle;
+
+  /// No description provided for @signInWithApple.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Apple'**
+  String get signInWithApple;
+
   /// No description provided for @signUp.
   ///
   /// In en, this message translates to:
   /// **'Sign Up'**
   String get signUp;
+
+  /// No description provided for @signUpWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up with Google'**
+  String get signUpWithGoogle;
+
+  /// No description provided for @signUpWithApple.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up with Apple'**
+  String get signUpWithApple;
+
+  /// No description provided for @signUpDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Join AI Coach today and start your journey!'**
+  String get signUpDescription;
 
   /// No description provided for @alreadyHaveAccount.
   ///
@@ -451,6 +481,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Change Language'**
   String get changeLanguage;
+
+  /// No description provided for @plans.
+  ///
+  /// In en, this message translates to:
+  /// **'Plans'**
+  String get plans;
+
+  /// No description provided for @activities.
+  ///
+  /// In en, this message translates to:
+  /// **'Activities'**
+  String get activities;
+
+  /// No description provided for @settingsPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings page.'**
+  String get settingsPage;
+
+  /// No description provided for @yourPlans.
+  ///
+  /// In en, this message translates to:
+  /// **'Here your training plans will be shown.'**
+  String get yourPlans;
+
+  /// No description provided for @yourActivities.
+  ///
+  /// In en, this message translates to:
+  /// **'Here your activities will be shown.'**
+  String get yourActivities;
+
+  /// No description provided for @helloUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello, {user}'**
+  String helloUser(Object user);
 }
 
 class _AppLocalizationsDelegate

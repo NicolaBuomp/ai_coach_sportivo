@@ -32,6 +32,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final authNotifier = ref.read(authProvider.notifier);
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(l10n.signIn),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
@@ -41,37 +47,25 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 60),
-
                 // Logo/Icon
                 Icon(
                   Icons.smart_toy_outlined,
                   size: 80,
                   color: Theme.of(context).colorScheme.primary,
                 ),
-
                 const SizedBox(height: 32),
-
                 // Welcome text
-                Text(
-                  l10n.welcomeBack,
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
+                Column(
+                  children: [
+                    Text(
+                      l10n.welcomeBack, // uso welcomeBack invece di l10n.login
+                      style: Theme.of(context).textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 16),
+                  ],
                 ),
-
-                const SizedBox(height: 8),
-
-                Text(
-                  l10n.signInToAccount,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-
                 const SizedBox(height: 48),
-
                 // Email field
                 TextFormField(
                   controller: _emailController,
@@ -176,13 +170,62 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                 const SizedBox(height: 24),
 
-                // Sign up link
-                TextButton(
-                  onPressed: () => context.goNamed(signUpRoute),
-                  child: Text(l10n.dontHaveAccount),
+                SizedBox(
+                  height: 45,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                    ),
+                    onPressed: authState.isLoading ? null : _handleSignIn,
+                    child: authState.isLoading
+                        ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : Text(
+                            l10n.signInWithGoogle,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSecondary,
+                            ),
+                          ),
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                SizedBox(
+                  height: 45,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                    ),
+                    onPressed: authState.isLoading ? null : _handleSignIn,
+                    child: authState.isLoading
+                        ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : Text(
+                            l10n.signInWithApple,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSecondary,
+                            ),
+                          ),
+                  ),
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 16.0),
+          child: TextButton(
+            onPressed: () => context.pushNamed(signUpRoute),
+            child: Text(l10n.dontHaveAccount),
           ),
         ),
       ),
@@ -197,8 +240,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         .signIn(_emailController.text.trim(), _passwordController.text);
 
     if (success && mounted) {
-      // Navigate to home or dashboard
-      context.go('/'); // Adjust according to your routing
+      context.go(homeRoute);
     }
   }
 }

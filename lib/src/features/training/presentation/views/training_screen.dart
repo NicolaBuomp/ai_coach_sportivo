@@ -5,6 +5,11 @@ class TrainingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Training Screen'));
+    return Center(
+      child: ElevatedButton(
+        onPressed: () {},
+        child: const Text('Start Training'),
+      ),
+    );
   }
 }

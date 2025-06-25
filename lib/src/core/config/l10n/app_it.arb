@@ -8,7 +8,12 @@
   "password": "Password",
   "confirmPassword": "Conferma Password",
   "signIn": "Accedi",
+  "signInWithGoogle": "Continua con Google",
+  "signInWithApple": "Continua con Apple",
   "signUp": "Registrati",
+  "signUpWithGoogle": "Registrati con Google",
+  "signUpWithApple": "Registrati con Apple",
+  "signUpDescription": "Unisciti ad AI Coach oggi e inizia il tuo percorso!",
   "alreadyHaveAccount": "Hai già un account? Accedi",
   "dontHaveAccount": "Non hai un account? Registrati",
   "verifyYourEmail": "Verifica la tua Email",
@@ -85,5 +90,16 @@
   "profile": "Profilo",
   "logout": "Logout",
   "changeTheme": "Cambia Tema",
-  "changeLanguage": "Cambia Lingua"
+  "changeLanguage": "Cambia Lingua",
+  "plans": "Piani",
+  "activities": "Attività",
+  "settingsPage": "Pagina delle impostazioni.",
+  "yourPlans": "Qui verranno mostrati i tuoi piani di allenamento.",
+  "yourActivities": "Qui verranno mostrate le tue attività.",
+  "helloUser": "Ciao, {user}",
+  "@helloUser": {
+    "placeholders": {
+      "user": {}
+    }
+  }
 }

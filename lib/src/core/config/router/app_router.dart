@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:ai_coach_sportivo/src/core/config/router/route_name.dart';
+import 'package:ai_coach_sportivo/src/features/activities/presentation/views/activities_screen.dart';
 import 'package:ai_coach_sportivo/src/features/auth/data/auth_repository.dart';
 import 'package:ai_coach_sportivo/src/features/auth/presentation/views/login_screen.dart';
 import 'package:ai_coach_sportivo/src/features/auth/presentation/views/signup_screen.dart';
@@ -7,7 +8,9 @@ import 'package:ai_coach_sportivo/src/features/calendar/presentation/views/calen
 import 'package:ai_coach_sportivo/src/features/home/presentation/views/home_screen.dart';
 import 'package:ai_coach_sportivo/src/features/onboarding/data/onboarding_repository.dart';
 import 'package:ai_coach_sportivo/src/features/onboarding/presentation/views/onboarding_screen.dart';
+import 'package:ai_coach_sportivo/src/features/plans/presentation/views/plans_screen.dart';
 import 'package:ai_coach_sportivo/src/features/profile/presentation/views/profile_screen.dart';
+import 'package:ai_coach_sportivo/src/features/settings/presentation/views/settings_screen.dart';
 import 'package:ai_coach_sportivo/src/features/training/presentation/views/training_screen.dart';
 import 'package:ai_coach_sportivo/src/shared/widgets/main_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -88,6 +91,16 @@ final routerProvider = Provider<GoRouter>((ref) {
             builder: (context, state) => const HomeScreen(),
           ),
           GoRoute(
+            path: plansRoute,
+            name: plansRoute,
+            builder: (context, state) => const PlansScreen(),
+          ),
+          GoRoute(
+            path: activitiesRoute,
+            name: activitiesRoute,
+            builder: (context, state) => const ActivitiesScreen(),
+          ),
+          GoRoute(
             path: trainingRoute,
             name: trainingRoute,
             builder: (context, state) => const TrainingScreen(),
@@ -103,6 +116,12 @@ final routerProvider = Provider<GoRouter>((ref) {
             builder: (context, state) => const ProfileScreen(),
           ),
         ],
+      ),
+      // Settings come route indipendente (fuori dal MainScaffold)
+      GoRoute(
+        path: settingsRoute,
+        name: settingsRoute,
+        builder: (context, state) => const SettingsScreen(),
       ),
     ],
   );

@@ -16,7 +16,6 @@ Future<void> main() async {
     anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
 
-  // Inizializza SharedPreferences
   final sharedPreferences = await SharedPreferences.getInstance();
 
   runApp(
