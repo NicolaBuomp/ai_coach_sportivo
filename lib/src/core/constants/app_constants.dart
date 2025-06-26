@@ -119,4 +119,24 @@ class AppConstants {
   static const double maxWeight = 300.0; // kg
   static const int minAge = 13; // anni
   static const int maxAge = 100; // anni
+
+  // === AUTHENTICATION ===
+  static const int maxPasswordLength = 128;
+  static const String emailRegexPattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+  static const String passwordStrongRegex =
+      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]';
+  static const String passwordStrengthLabel = 'Forza password';
+
+  // === AUTH ERROR KEYS ===
+  static const String errorInvalidEmailOrPassword = 'invalidEmailOrPassword';
+  static const String errorPleaseVerifyEmail = 'pleaseVerifyEmail';
+  static const String errorEmailAlreadyExists = 'emailAlreadyExists';
+  static const String errorGoogleSignInFailed = 'googleSignInFailed';
+  static const String errorAppleSignInFailed = 'appleSignInFailed';
+  static const String errorAuthenticationCancelled = 'authenticationCancelled';
+  static const String errorUnexpectedError = 'unexpectedError';
+
+  // === AUTH SUCCESS KEYS ===
+  static const String successAccountCreated = 'accountCreatedSuccessfully';
+  static const String successLoginComplete = 'loginSuccessful';
 }

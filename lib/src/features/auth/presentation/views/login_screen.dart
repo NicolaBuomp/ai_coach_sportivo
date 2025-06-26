@@ -1,6 +1,14 @@
+import 'dart:io';
+
 import 'package:ai_coach_sportivo/src/core/config/l10n/app_localizations.dart';
 import 'package:ai_coach_sportivo/src/core/config/router/route_name.dart';
 import 'package:ai_coach_sportivo/src/features/auth/presentation/viewmodel/auth_viewmodel.dart';
+import 'package:ai_coach_sportivo/src/shared/widgets/auth/auth_text_field.dart';
+import 'package:ai_coach_sportivo/src/shared/widgets/auth/password_text_field.dart';
+import 'package:ai_coach_sportivo/src/shared/widgets/auth/auth_buttons.dart';
+import 'package:ai_coach_sportivo/src/shared/widgets/auth/auth_widgets.dart';
+import 'package:ai_coach_sportivo/src/shared/widgets/common/message_widgets.dart';
+import 'package:ai_coach_sportivo/src/shared/utils/auth/auth_form_hook.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -16,12 +24,27 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _obscurePassword = true;
+  AuthFormHook? _authHook;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(authProvider.notifier).clearError();
+      _authHook = AuthFormHook(
+        ref: ref,
+        context: context,
+        emailController: _emailController,
+        passwordController: _passwordController,
+      );
+    });
+  }
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _authHook?.dispose();
     super.dispose();
   }
 
@@ -29,193 +52,106 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final authState = ref.watch(authProvider);
-    final authNotifier = ref.read(authProvider.notifier);
+
+    // Listen to auth state changes
+    ref.listen<AuthState>(authProvider, (previous, next) {
+      if (!context.mounted) return;
+
+      // Handle success messages
+      if (next.successMessage != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(next.successMessage!),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+        ref.read(authProvider.notifier).clearSuccess();
+      }
+    });
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.signIn),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 60),
-                // Logo/Icon
-                Icon(
-                  Icons.smart_toy_outlined,
-                  size: 80,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(height: 32),
-                // Welcome text
-                Column(
-                  children: [
-                    Text(
-                      l10n.welcomeBack, // uso welcomeBack invece di l10n.login
-                      style: Theme.of(context).textTheme.headlineSmall
-                          ?.copyWith(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 16),
-                  ],
-                ),
-                const SizedBox(height: 48),
-                // Email field
-                TextFormField(
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
+      body: LoadingOverlay(
+        isLoading: authState.isLoading,
+        child: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 60),
+
+                  // Header con animazione
+                  AuthHeader(title: l10n.welcomeBack),
+
+                  const SizedBox(height: 48),
+
+                  // Email field
+                  AuthTextField(
+                    controller: _emailController,
                     labelText: l10n.email,
                     prefixIcon: const Icon(Icons.email_outlined),
-                    border: const OutlineInputBorder(),
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    enabled: !authState.isLoading,
                     errorText: !authState.isEmailValid
                         ? l10n.pleaseEnterValidEmail
                         : null,
+                    validator: _authHook?.emailValidator,
+                    onChanged: (_) => _authHook?.clearError(),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return l10n.pleaseEnterEmail;
-                    }
-                    if (!RegExp(
-                      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                    ).hasMatch(value)) {
-                      return l10n.pleaseEnterValidEmail;
-                    }
-                    return null;
-                  },
-                  onChanged: (_) => authNotifier.clearError(),
-                ),
 
-                const SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
-                // Password field
-                TextFormField(
-                  controller: _passwordController,
-                  obscureText: _obscurePassword,
-                  textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(
+                  // Password field
+                  PasswordTextField(
+                    controller: _passwordController,
                     labelText: l10n.password,
-                    prefixIcon: const Icon(Icons.lock_outlined),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _obscurePassword
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _obscurePassword = !_obscurePassword;
-                        });
-                      },
-                    ),
-                    border: const OutlineInputBorder(),
+                    textInputAction: TextInputAction.done,
+                    enabled: !authState.isLoading,
                     errorText: !authState.isPasswordValid
                         ? l10n.passwordMinLength
                         : null,
+                    validator: _authHook?.passwordValidator,
+                    onChanged: (_) => _authHook?.clearError(),
+                    onFieldSubmitted: (_) => _authHook?.handleSignIn(),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return l10n.pleaseEnterPassword;
-                    }
-                    if (value.length < 6) {
-                      return l10n.passwordMinLength;
-                    }
-                    return null;
-                  },
-                  onChanged: (_) => authNotifier.clearError(),
-                  onFieldSubmitted: (_) => _handleSignIn(),
-                ),
 
-                const SizedBox(height: 24),
+                  const SizedBox(height: 24),
 
-                // Error message
-                if (authState.error != null)
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    margin: const EdgeInsets.only(bottom: 16),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.errorContainer,
-                      borderRadius: BorderRadius.circular(8),
+                  // Error message
+                  if (authState.error != null)
+                    ErrorMessage(message: l10n.unexpectedError),
+
+                  // Primary login button
+                  PrimaryAuthButton(
+                    text: l10n.signIn,
+                    onPressed: _authHook?.handleSignIn,
+                    isLoading: authState.isLoading,
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // Google login button
+                  SocialAuthButton(
+                    text: l10n.signInWithGoogle,
+                    onPressed: _authHook?.handleGoogleSignIn,
+                    isLoading: authState.isLoading,
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // Apple login button (solo su dispositivi Apple)
+                  if (Platform.isIOS || Platform.isMacOS)
+                    SocialAuthButton(
+                      text: l10n.signInWithApple,
+                      onPressed: _authHook?.handleAppleSignIn,
+                      isLoading: authState.isLoading,
                     ),
-                    child: Text(
-                      authState.error!,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onErrorContainer,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-
-                // Sign In button
-                SizedBox(
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: authState.isLoading ? null : _handleSignIn,
-                    child: authState.isLoading
-                        ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : Text(l10n.signIn),
-                  ),
-                ),
-
-                const SizedBox(height: 24),
-
-                SizedBox(
-                  height: 45,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
-                    ),
-                    onPressed: authState.isLoading ? null : _handleSignIn,
-                    child: authState.isLoading
-                        ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : Text(
-                            l10n.signInWithGoogle,
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSecondary,
-                            ),
-                          ),
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                SizedBox(
-                  height: 45,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
-                    ),
-                    onPressed: authState.isLoading ? null : _handleSignIn,
-                    child: authState.isLoading
-                        ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : Text(
-                            l10n.signInWithApple,
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSecondary,
-                            ),
-                          ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -224,23 +160,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         child: Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
           child: TextButton(
-            onPressed: () => context.pushNamed(signUpRoute),
+            onPressed: authState.isLoading
+                ? null
+                : () => context.pushNamed(signUpRoute),
             child: Text(l10n.dontHaveAccount),
           ),
         ),
       ),
     );
-  }
-
-  Future<void> _handleSignIn() async {
-    if (!_formKey.currentState!.validate()) return;
-
-    final success = await ref
-        .read(authProvider.notifier)
-        .signIn(_emailController.text.trim(), _passwordController.text);
-
-    if (success && mounted) {
-      context.go(homeRoute);
-    }
   }
 }

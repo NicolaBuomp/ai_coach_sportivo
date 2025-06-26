@@ -380,6 +380,24 @@ abstract class AppLocalizations {
   /// **'An unexpected error occurred. Please try again.'**
   String get unexpectedError;
 
+  /// No description provided for @googleSignInFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign in failed. Please try again.'**
+  String get googleSignInFailed;
+
+  /// No description provided for @appleSignInFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Apple sign in failed. Please try again.'**
+  String get appleSignInFailed;
+
+  /// No description provided for @authenticationCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication was cancelled.'**
+  String get authenticationCancelled;
+
   /// No description provided for @quickActions.
   ///
   /// In en, this message translates to:

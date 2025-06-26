@@ -56,30 +56,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     final l10n = AppLocalizations.of(context)!;
     final authState = ref.watch(authProvider);
 
-    // Listen to auth state changes
-    ref.listen<AuthState>(authProvider, (previous, next) {
-      if (!context.mounted) return;
-
-      // Handle success messages
-      if (next.successMessage != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(next.successMessage!),
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            duration: const Duration(seconds: 3),
-          ),
-        );
-        ref.read(authProvider.notifier).clearSuccess();
-
-        // Navigate to login after successful signup
-        Future.delayed(const Duration(seconds: 2), () {
-          if (context.mounted) {
-            context.goNamed(loginRoute);
-          }
-        });
-      }
-    });
-
     return Scaffold(
       body: LoadingOverlay(
         isLoading: authState.isLoading,

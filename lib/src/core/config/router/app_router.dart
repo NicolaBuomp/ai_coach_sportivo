@@ -15,7 +15,7 @@ import 'package:ai_coach_sportivo/src/features/profile/presentation/views/edit_p
 import 'package:ai_coach_sportivo/src/features/profile/presentation/views/profile_screen.dart';
 import 'package:ai_coach_sportivo/src/features/settings/presentation/views/settings_screen.dart';
 import 'package:ai_coach_sportivo/src/features/training/presentation/views/training_screen.dart';
-import 'package:ai_coach_sportivo/src/shared/widgets/main_scaffold.dart';
+import 'package:ai_coach_sportivo/src/shared/widgets/common/main_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';

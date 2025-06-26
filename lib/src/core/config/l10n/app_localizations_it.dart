@@ -168,6 +168,15 @@ class AppLocalizationsIt extends AppLocalizations {
       'Si è verificato un errore imprevisto. Riprova.';
 
   @override
+  String get googleSignInFailed => 'Accesso con Google fallito. Riprova.';
+
+  @override
+  String get appleSignInFailed => 'Accesso con Apple fallito. Riprova.';
+
+  @override
+  String get authenticationCancelled => 'Autenticazione annullata.';
+
+  @override
   String get quickActions => 'Azioni Rapide';
 
   @override

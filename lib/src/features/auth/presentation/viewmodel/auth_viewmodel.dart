@@ -94,6 +94,49 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
+  Future<bool> signInWithGoogle() async {
+    state = state.copyWith(
+      isLoading: true,
+      clearError: true,
+      clearSuccess: true,
+    );
+
+    try {
+      final success = await _authRepository.signInWithGoogle();
+      state = state.copyWith(isLoading: false);
+      return success;
+    } on AuthException catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        error: _getGoogleErrorMessage(e),
+      );
+      return false;
+    } catch (e) {
+      state = state.copyWith(isLoading: false, error: 'googleSignInFailed');
+      return false;
+    }
+  }
+
+  Future<bool> signInWithApple() async {
+    state = state.copyWith(
+      isLoading: true,
+      clearError: true,
+      clearSuccess: true,
+    );
+
+    try {
+      final success = await _authRepository.signInWithApple();
+      state = state.copyWith(isLoading: false);
+      return success;
+    } on AuthException catch (e) {
+      state = state.copyWith(isLoading: false, error: _getAppleErrorMessage(e));
+      return false;
+    } catch (e) {
+      state = state.copyWith(isLoading: false, error: 'appleSignInFailed');
+      return false;
+    }
+  }
+
   bool _validateInputs(String email, String password) {
     final emailValid = _validateEmail(email);
     final passwordValid = _validatePassword(password);
@@ -125,6 +168,26 @@ class AuthNotifier extends StateNotifier<AuthState> {
         return 'emailAlreadyExists';
       default:
         return 'unexpectedError';
+    }
+  }
+
+  String _getGoogleErrorMessage(AuthException e) {
+    switch (e.message) {
+      case 'User cancelled the operation':
+      case 'The user canceled the sign-in flow':
+        return 'authenticationCancelled';
+      default:
+        return 'googleSignInFailed';
+    }
+  }
+
+  String _getAppleErrorMessage(AuthException e) {
+    switch (e.message) {
+      case 'User cancelled the operation':
+      case 'The user canceled the sign-in flow':
+        return 'authenticationCancelled';
+      default:
+        return 'appleSignInFailed';
     }
   }
 

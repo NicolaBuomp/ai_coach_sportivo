@@ -25,6 +25,20 @@ class AuthRepository {
     await _client.auth.signOut();
   }
 
+  Future<bool> signInWithGoogle() async {
+    return await _client.auth.signInWithOAuth(
+      OAuthProvider.google,
+      redirectTo: 'io.supabase.flutterquickstart://login-callback/',
+    );
+  }
+
+  Future<bool> signInWithApple() async {
+    return await _client.auth.signInWithOAuth(
+      OAuthProvider.apple,
+      redirectTo: 'io.supabase.flutterquickstart://login-callback/',
+    );
+  }
+
   Future<void> resendConfirmation(String email) async {
     await _client.auth.resend(type: OtpType.signup, email: email);
   }

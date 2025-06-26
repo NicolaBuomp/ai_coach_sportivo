@@ -166,6 +166,15 @@ class AppLocalizationsEn extends AppLocalizations {
       'An unexpected error occurred. Please try again.';
 
   @override
+  String get googleSignInFailed => 'Google sign in failed. Please try again.';
+
+  @override
+  String get appleSignInFailed => 'Apple sign in failed. Please try again.';
+
+  @override
+  String get authenticationCancelled => 'Authentication was cancelled.';
+
+  @override
   String get quickActions => 'Quick Actions';
 
   @override
