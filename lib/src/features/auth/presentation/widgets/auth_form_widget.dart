@@ -4,6 +4,8 @@ import 'package:ai_coach_sportivo/src/core/config/l10n/app_localizations.dart';
 import 'package:ai_coach_sportivo/src/features/auth/presentation/viewmodel/auth_viewmodel.dart';
 import 'package:ai_coach_sportivo/src/shared/widgets/widgets.dart';
 import 'package:ai_coach_sportivo/src/shared/utils/auth/auth_form_hook.dart';
+import 'package:ai_coach_sportivo/src/shared/providers/loading_provider.dart';
+import 'widgets.dart';
 
 /// Widget base per i form di autenticazione
 class AuthFormWidget extends ConsumerStatefulWidget {
@@ -64,6 +66,7 @@ class _AuthFormWidgetState extends ConsumerState<AuthFormWidget> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final authState = ref.watch(authProvider);
+    final isGlobalLoading = ref.watch(globalLoadingProvider);
 
     return Form(
       key: _formKey,
@@ -83,7 +86,7 @@ class _AuthFormWidgetState extends ConsumerState<AuthFormWidget> {
             prefixIcon: const Icon(Icons.email_outlined),
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
-            enabled: !authState.isLoading,
+            enabled: !isGlobalLoading,
             errorText: !authState.isEmailValid
                 ? l10n.pleaseEnterValidEmail
                 : null,
@@ -100,7 +103,7 @@ class _AuthFormWidgetState extends ConsumerState<AuthFormWidget> {
             textInputAction: widget.formType == AuthFormType.signUp
                 ? TextInputAction.next
                 : TextInputAction.done,
-            enabled: !authState.isLoading,
+            enabled: !isGlobalLoading,
             errorText: !authState.isPasswordValid
                 ? l10n.passwordMinLength
                 : null,
@@ -119,7 +122,7 @@ class _AuthFormWidgetState extends ConsumerState<AuthFormWidget> {
               controller: _confirmPasswordController,
               labelText: l10n.confirmPassword,
               textInputAction: TextInputAction.done,
-              enabled: !authState.isLoading,
+              enabled: !isGlobalLoading,
               validator: _authHook.confirmPasswordValidator,
               onChanged: (_) => _authHook.clearError(),
               onFieldSubmitted: (_) => _authHook.handleSignUp(),
@@ -132,7 +135,7 @@ class _AuthFormWidgetState extends ConsumerState<AuthFormWidget> {
           if (authState.error != null)
             ErrorMessage(message: _authHook.l10n.unexpectedError),
 
-          // Primary button
+          // Primary button - senza loading interno
           PrimaryAuthButton(
             text: widget.formType == AuthFormType.signIn
                 ? l10n.signIn
@@ -140,10 +143,10 @@ class _AuthFormWidgetState extends ConsumerState<AuthFormWidget> {
             onPressed: widget.formType == AuthFormType.signIn
                 ? _authHook.handleSignIn
                 : _authHook.handleSignUp,
-            isLoading: authState.isLoading,
+            isLoading: false, // Usiamo solo il loading globale
           ),
 
-          // Social auth buttons
+          // Social auth buttons - senza loading interno
           if (widget.showGoogleAuth || widget.showAppleAuth) ...[
             const SizedBox(height: 24),
 
@@ -153,7 +156,7 @@ class _AuthFormWidgetState extends ConsumerState<AuthFormWidget> {
                     ? l10n.signInWithGoogle
                     : l10n.signUpWithGoogle,
                 onPressed: _authHook.handleGoogleSignIn,
-                isLoading: authState.isLoading,
+                isLoading: false, // Usiamo solo il loading globale
               ),
 
             if (widget.showAppleAuth) ...[
@@ -163,7 +166,7 @@ class _AuthFormWidgetState extends ConsumerState<AuthFormWidget> {
                     ? l10n.signInWithApple
                     : l10n.signUpWithApple,
                 onPressed: _authHook.handleAppleSignIn,
-                isLoading: authState.isLoading,
+                isLoading: false, // Usiamo solo il loading globale
               ),
             ],
           ],

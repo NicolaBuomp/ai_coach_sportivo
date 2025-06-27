@@ -1,7 +1,7 @@
+import 'package:ai_coach_sportivo/src/features/auth/presentation/widgets/password_strength_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:ai_coach_sportivo/src/core/constants/app_dimensions.dart';
 import 'package:ai_coach_sportivo/src/core/constants/app_durations.dart';
-import 'package:ai_coach_sportivo/src/shared/widgets/auth/password_strength_indicator.dart';
 
 /// Widget riutilizzabile per i campi password con visibilità toggleabile
 class PasswordTextField extends StatefulWidget {

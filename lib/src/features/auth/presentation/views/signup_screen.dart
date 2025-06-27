@@ -1,14 +1,16 @@
 import 'dart:io';
 
 import 'package:ai_coach_sportivo/src/core/config/l10n/app_localizations.dart';
-import 'package:ai_coach_sportivo/src/core/config/router/route_name.dart';
+import 'package:ai_coach_sportivo/src/core/constants/app_route_name.dart';
 import 'package:ai_coach_sportivo/src/features/auth/presentation/viewmodel/auth_viewmodel.dart';
-import 'package:ai_coach_sportivo/src/shared/widgets/auth/auth_text_field.dart';
-import 'package:ai_coach_sportivo/src/shared/widgets/auth/password_text_field.dart';
-import 'package:ai_coach_sportivo/src/shared/widgets/auth/auth_buttons.dart';
-import 'package:ai_coach_sportivo/src/shared/widgets/auth/auth_widgets.dart';
+import 'package:ai_coach_sportivo/src/features/auth/presentation/widgets/auth_text_field.dart';
+import 'package:ai_coach_sportivo/src/features/auth/presentation/widgets/password_text_field.dart';
+import 'package:ai_coach_sportivo/src/features/auth/presentation/widgets/auth_buttons.dart';
+import 'package:ai_coach_sportivo/src/features/auth/presentation/widgets/auth_widgets.dart';
 import 'package:ai_coach_sportivo/src/shared/widgets/common/message_widgets.dart';
 import 'package:ai_coach_sportivo/src/shared/utils/auth/auth_form_hook.dart';
+import 'package:ai_coach_sportivo/src/shared/providers/loading_provider.dart';
+import 'package:ai_coach_sportivo/src/shared/widgets/common/global_loading_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -55,6 +57,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final authState = ref.watch(authProvider);
+    final isGlobalLoading = ref.watch(globalLoadingProvider);
 
     // Listen to auth state changes
     ref.listen<AuthState>(authProvider, (previous, next) {
@@ -71,127 +74,129 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         );
         ref.read(authProvider.notifier).clearSuccess();
 
-        // Navigate to login after successful signup
-        Future.delayed(const Duration(seconds: 2), () {
-          if (context.mounted) {
-            context.goNamed(loginRoute);
-          }
-        });
+        // Navigate to email confirmation screen after successful signup
+        context.go(emailConfirmationRoute);
       }
     });
 
-    return Scaffold(
-      body: LoadingOverlay(
-        isLoading: authState.isLoading,
-        child: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(height: 60),
+    return GlobalLoadingOverlay(
+      isLoading: isGlobalLoading,
+      child: Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const SizedBox(height: 60),
 
-                  // Header
-                  AuthHeader(title: l10n.createAccount),
+                        // Header
+                        AuthHeader(title: l10n.createAccount),
 
-                  const SizedBox(height: 32),
+                        const SizedBox(height: 32),
 
-                  // Email field
-                  AuthTextField(
-                    controller: _emailController,
-                    labelText: l10n.email,
-                    prefixIcon: const Icon(Icons.email_outlined),
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    enabled: !authState.isLoading,
-                    errorText: !authState.isEmailValid
-                        ? l10n.pleaseEnterValidEmail
-                        : null,
-                    validator: _authHook?.emailValidator,
-                    onChanged: (_) => _authHook?.clearError(),
-                  ),
+                        // Email field
+                        AuthTextField(
+                          controller: _emailController,
+                          labelText: l10n.email,
+                          prefixIcon: const Icon(Icons.email_outlined),
+                          keyboardType: TextInputType.emailAddress,
+                          textInputAction: TextInputAction.next,
+                          enabled: !isGlobalLoading,
+                          errorText: !authState.isEmailValid
+                              ? l10n.pleaseEnterValidEmail
+                              : null,
+                          validator: _authHook?.emailValidator,
+                          onChanged: (_) => _authHook?.clearError(),
+                        ),
 
-                  const SizedBox(height: 16),
+                        const SizedBox(height: 16),
 
-                  // Password field
-                  PasswordTextField(
-                    controller: _passwordController,
-                    labelText: l10n.password,
-                    textInputAction: TextInputAction.next,
-                    enabled: !authState.isLoading,
-                    errorText: !authState.isPasswordValid
-                        ? l10n.passwordMinLength
-                        : null,
-                    validator: _authHook?.passwordValidator,
-                    onChanged: (_) => _authHook?.clearError(),
-                    helperText: l10n.passwordMinLength,
-                    showStrengthIndicator: true,
-                  ),
+                        // Password field
+                        PasswordTextField(
+                          controller: _passwordController,
+                          labelText: l10n.password,
+                          textInputAction: TextInputAction.next,
+                          enabled: !isGlobalLoading,
+                          errorText: !authState.isPasswordValid
+                              ? l10n.passwordMinLength
+                              : null,
+                          validator: _authHook?.passwordValidator,
+                          onChanged: (_) => _authHook?.clearError(),
+                          helperText: l10n.passwordMinLength,
+                          showStrengthIndicator: true,
+                        ),
 
-                  const SizedBox(height: 16),
+                        const SizedBox(height: 16),
 
-                  // Confirm Password field
-                  PasswordTextField(
-                    controller: _confirmPasswordController,
-                    labelText: l10n.confirmPassword,
-                    textInputAction: TextInputAction.done,
-                    enabled: !authState.isLoading,
-                    validator: _authHook?.confirmPasswordValidator,
-                    onChanged: (_) => _authHook?.clearError(),
-                    onFieldSubmitted: (_) => _authHook?.handleSignUp(),
-                  ),
+                        // Confirm Password field
+                        PasswordTextField(
+                          controller: _confirmPasswordController,
+                          labelText: l10n.confirmPassword,
+                          textInputAction: TextInputAction.done,
+                          enabled: !isGlobalLoading,
+                          validator: _authHook?.confirmPasswordValidator,
+                          onChanged: (_) => _authHook?.clearError(),
+                          onFieldSubmitted: (_) => _authHook?.handleSignUp(),
+                        ),
 
-                  const SizedBox(height: 24),
+                        const SizedBox(height: 24),
 
-                  // Error message
-                  if (authState.error != null)
-                    ErrorMessage(message: l10n.unexpectedError),
+                        // Error message
+                        if (authState.error != null)
+                          ErrorMessage(message: authState.error!),
 
-                  // Sign Up button
-                  PrimaryAuthButton(
-                    text: l10n.signUp,
-                    onPressed: _authHook?.handleSignUp,
-                    isLoading: authState.isLoading,
-                  ),
+                        // Sign Up button - senza loading interno
+                        PrimaryAuthButton(
+                          text: l10n.signUp,
+                          onPressed: _authHook?.handleSignUp,
+                          isLoading: false, // Usiamo solo il loading globale
+                        ),
 
-                  const SizedBox(height: 24),
+                        const SizedBox(height: 24),
 
-                  // Google Sign Up button
-                  SocialAuthButton(
-                    text: l10n.signUpWithGoogle,
-                    onPressed: _authHook?.handleGoogleSignIn,
-                    isLoading: authState.isLoading,
-                  ),
+                        // Google Sign Up button - senza loading interno
+                        SocialAuthButton(
+                          text: l10n.signUpWithGoogle,
+                          onPressed: _authHook?.handleGoogleSignIn,
+                          isLoading: false, // Usiamo solo il loading globale
+                        ),
 
-                  const SizedBox(height: 16),
+                        const SizedBox(height: 16),
 
-                  // Apple Sign Up button (solo su dispositivi Apple)
-                  if (Platform.isIOS || Platform.isMacOS)
-                    SocialAuthButton(
-                      text: l10n.signUpWithApple,
-                      onPressed: _authHook?.handleAppleSignIn,
-                      isLoading: authState.isLoading,
+                        // Apple Sign Up button (solo su dispositivi Apple) - senza loading interno
+                        if (Platform.isIOS || Platform.isMacOS)
+                          SocialAuthButton(
+                            text: l10n.signUpWithApple,
+                            onPressed: _authHook?.handleAppleSignIn,
+                            isLoading: false, // Usiamo solo il loading globale
+                          ),
+                      ],
                     ),
-                ],
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
-      ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 16.0),
-          child: TextButton(
-            onPressed: authState.isLoading
-                ? null
-                : () {
-                    // Cancella l'errore prima di navigare
-                    _authHook?.clearError();
-                    context.goNamed(loginRoute);
-                  },
-            child: Text(l10n.alreadyHaveAccount),
+
+              // Bottom navigation area
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: TextButton(
+                  onPressed: isGlobalLoading
+                      ? null
+                      : () {
+                          // Cancella l'errore prima di navigare
+                          _authHook?.clearError();
+                          context.goNamed(loginRoute);
+                        },
+                  child: Text(l10n.alreadyHaveAccount),
+                ),
+              ),
+            ],
           ),
         ),
       ),

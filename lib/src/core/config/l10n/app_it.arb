@@ -165,5 +165,20 @@
   "volleyball": "Pallavolo",
   "yoga": "Yoga",
   "pilates": "Pilates",
-  "boxing": "Boxe"
+  "boxing": "Boxe",
+  "forgotPassword": "Password dimenticata?",
+  "passwordResetEmailSent": "Email di reset password inviata",
+  "passwordResetFailed": "Invio email di reset fallito",
+  "emailNotConfirmed": "Email non confermata. Controlla la tua casella email.",
+  "weakPassword": "La password deve essere di almeno 6 caratteri",
+  "emailAlreadyInUse": "Questa email è già associata a un account",
+  "tooManyRequests": "Troppi tentativi. Riprova più tardi.",
+  "userNotFound": "Utente non trovato",
+  "networkError": "Errore di rete. Controlla la connessione.",
+  "serverError": "Errore del server. Riprova più tardi.",
+  "timeoutError": "Timeout della richiesta. Riprova.",
+  "signupDisabled": "Registrazione temporaneamente disabilitata",
+  "emailRateLimit": "Troppi tentativi di invio email. Riprova più tardi.",
+  "passwordTooShort": "La password deve essere di almeno 6 caratteri",
+  "invalidEmailFormat": "Formato email non valido"
 }

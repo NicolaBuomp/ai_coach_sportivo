@@ -1,4 +1,4 @@
-import 'package:ai_coach_sportivo/src/core/config/router/route_name.dart';
+import 'package:ai_coach_sportivo/src/core/constants/app_route_name.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

@@ -1,6 +1,9 @@
 const String homeRoute = '/home';
 const String loginRoute = '/login';
 const String signUpRoute = '/signup';
+const String forgotPasswordRoute = '/forgot-password';
+const String resetPasswordRoute = '/reset-password';
+const String emailConfirmationRoute = '/email-confirmation';
 const String onboardingRoute = '/onboarding';
 const String trainingRoute = '/training';
 const String calendarRoute = '/calendar';

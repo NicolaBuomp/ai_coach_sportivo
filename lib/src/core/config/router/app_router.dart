@@ -1,9 +1,11 @@
 import 'dart:async';
-import 'package:ai_coach_sportivo/src/core/config/router/route_name.dart';
+import 'package:ai_coach_sportivo/src/core/constants/app_route_name.dart';
 import 'package:ai_coach_sportivo/src/features/activities/presentation/views/activities_screen.dart';
 import 'package:ai_coach_sportivo/src/features/auth/data/auth_repository.dart';
 import 'package:ai_coach_sportivo/src/features/auth/presentation/views/login_screen.dart';
 import 'package:ai_coach_sportivo/src/features/auth/presentation/views/signup_screen.dart';
+import 'package:ai_coach_sportivo/src/features/auth/presentation/views/forgot_password_screen.dart';
+import 'package:ai_coach_sportivo/src/features/auth/presentation/views/email_confirmation_screen.dart';
 import 'package:ai_coach_sportivo/src/features/calendar/presentation/views/calendar_screen.dart';
 import 'package:ai_coach_sportivo/src/features/home/presentation/views/home_screen.dart';
 import 'package:ai_coach_sportivo/src/features/onboarding/data/onboarding_repository.dart';
@@ -111,6 +113,19 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: signUpRoute,
         name: signUpRoute,
         builder: (context, state) => const SignUpScreen(),
+      ),
+      GoRoute(
+        path: forgotPasswordRoute,
+        name: forgotPasswordRoute,
+        builder: (context, state) => const ForgotPasswordScreen(),
+      ),
+      GoRoute(
+        path: emailConfirmationRoute,
+        name: emailConfirmationRoute,
+        builder: (context, state) {
+          final email = state.uri.queryParameters['email'] ?? '';
+          return EmailConfirmationScreen(email: email);
+        },
       ),
       GoRoute(
         path: completeProfileRoute,

@@ -409,4 +409,51 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get boxing => 'Boxing';
+
+  @override
+  String get forgotPassword => 'Forgot password?';
+
+  @override
+  String get passwordResetEmailSent => 'Password reset email sent';
+
+  @override
+  String get passwordResetFailed => 'Failed to send password reset email';
+
+  @override
+  String get emailNotConfirmed =>
+      'Email not confirmed. Check your email inbox.';
+
+  @override
+  String get weakPassword => 'Password must be at least 6 characters';
+
+  @override
+  String get emailAlreadyInUse =>
+      'This email is already associated with an account';
+
+  @override
+  String get tooManyRequests => 'Too many attempts. Try again later.';
+
+  @override
+  String get userNotFound => 'User not found';
+
+  @override
+  String get networkError => 'Network error. Check your connection.';
+
+  @override
+  String get serverError => 'Server error. Try again later.';
+
+  @override
+  String get timeoutError => 'Request timeout. Try again.';
+
+  @override
+  String get signupDisabled => 'Registration temporarily disabled';
+
+  @override
+  String get emailRateLimit => 'Too many email attempts. Try again later.';
+
+  @override
+  String get passwordTooShort => 'Password must be at least 6 characters';
+
+  @override
+  String get invalidEmailFormat => 'Invalid email format';
 }

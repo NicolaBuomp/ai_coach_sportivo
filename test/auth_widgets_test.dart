@@ -1,10 +1,9 @@
+import 'package:ai_coach_sportivo/src/features/auth/presentation/widgets/auth_buttons.dart';
+import 'package:ai_coach_sportivo/src/features/auth/presentation/widgets/auth_text_field.dart';
+import 'package:ai_coach_sportivo/src/features/auth/presentation/widgets/password_strength_indicator.dart';
+import 'package:ai_coach_sportivo/src/features/auth/presentation/widgets/password_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:ai_coach_sportivo/src/shared/widgets/auth/auth_text_field.dart';
-import 'package:ai_coach_sportivo/src/shared/widgets/auth/password_text_field.dart';
-import 'package:ai_coach_sportivo/src/shared/widgets/auth/auth_buttons.dart';
-import 'package:ai_coach_sportivo/src/shared/widgets/auth/password_strength_indicator.dart';
 
 void main() {
   group('Auth Widgets Tests', () {

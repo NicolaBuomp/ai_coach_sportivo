@@ -1,5 +1,5 @@
 import 'package:ai_coach_sportivo/src/core/config/l10n/app_localizations.dart';
-import 'package:ai_coach_sportivo/src/core/config/router/route_name.dart';
+import 'package:ai_coach_sportivo/src/core/constants/app_route_name.dart';
 import 'package:ai_coach_sportivo/src/core/constants/app_icons.dart';
 import 'package:ai_coach_sportivo/src/core/constants/app_dimensions.dart';
 import 'package:ai_coach_sportivo/src/features/auth/data/auth_repository.dart';

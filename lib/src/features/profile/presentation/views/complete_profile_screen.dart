@@ -1,6 +1,6 @@
 import 'package:ai_coach_sportivo/src/core/config/l10n/app_localizations.dart';
 import 'package:ai_coach_sportivo/src/core/config/l10n/locale_provider.dart';
-import 'package:ai_coach_sportivo/src/core/config/router/route_name.dart';
+import 'package:ai_coach_sportivo/src/core/constants/app_route_name.dart';
 import 'package:ai_coach_sportivo/src/core/config/theme/theme_provider.dart';
 import 'package:ai_coach_sportivo/src/features/auth/data/auth_repository.dart';
 import 'package:ai_coach_sportivo/src/features/profile/data/models/user_profile.dart';

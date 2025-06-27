@@ -2,6 +2,7 @@ import 'package:ai_coach_sportivo/src/core/config/router/app_router.dart';
 import 'package:ai_coach_sportivo/src/core/config/l10n/locale_provider.dart';
 import 'package:ai_coach_sportivo/src/core/config/theme/app_theme.dart';
 import 'package:ai_coach_sportivo/src/core/config/l10n/app_localizations.dart';
+import 'package:ai_coach_sportivo/src/shared/widgets/common/app_loading_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -38,6 +39,10 @@ class MyApp extends ConsumerWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
+      // Builder per inserire l'overlay loading all'interno di MaterialApp
+      builder: (context, child) {
+        return AppLoadingOverlay(child: child ?? const SizedBox.shrink());
+      },
     );
   }
 }

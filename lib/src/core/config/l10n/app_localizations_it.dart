@@ -411,4 +411,52 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get boxing => 'Boxe';
+
+  @override
+  String get forgotPassword => 'Password dimenticata?';
+
+  @override
+  String get passwordResetEmailSent => 'Email di reset password inviata';
+
+  @override
+  String get passwordResetFailed => 'Invio email di reset fallito';
+
+  @override
+  String get emailNotConfirmed =>
+      'Email non confermata. Controlla la tua casella email.';
+
+  @override
+  String get weakPassword => 'La password deve essere di almeno 6 caratteri';
+
+  @override
+  String get emailAlreadyInUse => 'Questa email è già associata a un account';
+
+  @override
+  String get tooManyRequests => 'Troppi tentativi. Riprova più tardi.';
+
+  @override
+  String get userNotFound => 'Utente non trovato';
+
+  @override
+  String get networkError => 'Errore di rete. Controlla la connessione.';
+
+  @override
+  String get serverError => 'Errore del server. Riprova più tardi.';
+
+  @override
+  String get timeoutError => 'Timeout della richiesta. Riprova.';
+
+  @override
+  String get signupDisabled => 'Registrazione temporaneamente disabilitata';
+
+  @override
+  String get emailRateLimit =>
+      'Troppi tentativi di invio email. Riprova più tardi.';
+
+  @override
+  String get passwordTooShort =>
+      'La password deve essere di almeno 6 caratteri';
+
+  @override
+  String get invalidEmailFormat => 'Formato email non valido';
 }

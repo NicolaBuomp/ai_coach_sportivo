@@ -121,6 +121,9 @@ class AppConstants {
   static const int maxAge = 100; // anni
 
   // === AUTHENTICATION ===
+  static const int resendEmailCooldownSeconds = 60;
+  static const int passwordMinLength = 6;
+  static const int maxEmailResendAttempts = 3;
   static const int maxPasswordLength = 128;
   static const String emailRegexPattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
   static const String passwordStrongRegex =
@@ -139,4 +142,12 @@ class AppConstants {
   // === AUTH SUCCESS KEYS ===
   static const String successAccountCreated = 'accountCreatedSuccessfully';
   static const String successLoginComplete = 'loginSuccessful';
+
+  // === ROUTE PARAMETERS ===
+  static const String emailParam = 'email';
+  static const String tokenParam = 'token';
+
+  // === VALIDAZIONE ===
+  static const int maxNameLength = 50;
+  static const int maxEmailLength = 100;
 }

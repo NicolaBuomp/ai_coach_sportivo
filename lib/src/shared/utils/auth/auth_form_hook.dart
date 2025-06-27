@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ai_coach_sportivo/src/features/auth/presentation/viewmodel/auth_viewmodel.dart';
 import 'package:ai_coach_sportivo/src/shared/utils/auth/auth_error_utils.dart';
 import 'package:ai_coach_sportivo/src/shared/utils/common/notification_utils.dart';
@@ -40,10 +41,34 @@ class AuthFormHook {
   Future<void> handleSignUp() async {
     if (!_validateForm(includeConfirmPassword: true)) return;
 
-    await authNotifier.signUp(
+    final success = await authNotifier.signUp(
       emailController.text.trim(),
       passwordController.text,
     );
+
+    // Se la registrazione è andata a buon fine, mostra messaggio e naviga
+    if (success && context.mounted) {
+      // Mostra messaggio di successo
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n.accountCreatedSuccessfully),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          duration: const Duration(seconds: 3),
+        ),
+      );
+
+      // Cancella il messaggio di successo dal state per evitare duplicati
+      authNotifier.clearSuccess();
+
+      // Naviga alla schermata di conferma email dopo un breve delay
+      Future.delayed(const Duration(seconds: 1), () {
+        if (context.mounted) {
+          context.go(
+            '/email-confirmation?email=${Uri.encodeComponent(emailController.text.trim())}',
+          );
+        }
+      });
+    }
   }
 
   /// Gestisce il login con Google

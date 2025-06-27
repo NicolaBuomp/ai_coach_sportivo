@@ -1,24 +1,23 @@
 import 'package:ai_coach_sportivo/src/features/auth/data/auth_repository.dart';
+import 'package:ai_coach_sportivo/src/core/constants/app_constants.dart';
+import 'package:ai_coach_sportivo/src/shared/providers/loading_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthState {
   const AuthState({
-    this.isLoading = false,
     this.error,
     this.isEmailValid = true,
     this.isPasswordValid = true,
     this.successMessage,
   });
 
-  final bool isLoading;
   final String? error;
   final bool isEmailValid;
   final bool isPasswordValid;
   final String? successMessage;
 
   AuthState copyWith({
-    bool? isLoading,
     String? error,
     bool? isEmailValid,
     bool? isPasswordValid,
@@ -27,7 +26,6 @@ class AuthState {
     bool clearSuccess = false,
   }) {
     return AuthState(
-      isLoading: isLoading ?? this.isLoading,
       error: clearError ? null : (error ?? this.error),
       isEmailValid: isEmailValid ?? this.isEmailValid,
       isPasswordValid: isPasswordValid ?? this.isPasswordValid,
@@ -39,32 +37,31 @@ class AuthState {
 }
 
 class AuthNotifier extends StateNotifier<AuthState> {
-  AuthNotifier(this._authRepository) : super(const AuthState());
+  AuthNotifier(this._authRepository, this._loadingNotifier)
+    : super(const AuthState());
 
   final AuthRepository _authRepository;
+  final LoadingNotifier _loadingNotifier;
 
   Future<bool> signIn(String email, String password) async {
     if (!_validateInputs(email, password)) {
       return false;
     }
 
-    state = state.copyWith(
-      isLoading: true,
-      clearError: true,
-      clearSuccess: true,
-    );
+    state = state.copyWith(clearError: true, clearSuccess: true);
 
-    try {
-      await _authRepository.signIn(email, password);
-      state = state.copyWith(isLoading: false);
-      return true;
-    } on AuthException catch (e) {
-      state = state.copyWith(isLoading: false, error: _getErrorMessage(e));
-      return false;
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: 'unexpectedError');
-      return false;
-    }
+    return _loadingNotifier.withLoading(() async {
+      try {
+        await _authRepository.signIn(email, password);
+        return true;
+      } on AuthException catch (e) {
+        state = state.copyWith(error: _getErrorMessage(e));
+        return false;
+      } catch (e) {
+        state = state.copyWith(error: 'unexpectedError');
+        return false;
+      }
+    });
   }
 
   Future<bool> signUp(String email, String password) async {
@@ -72,69 +69,55 @@ class AuthNotifier extends StateNotifier<AuthState> {
       return false;
     }
 
-    state = state.copyWith(
-      isLoading: true,
-      clearError: true,
-      clearSuccess: true,
-    );
+    state = state.copyWith(clearError: true, clearSuccess: true);
 
-    try {
-      await _authRepository.signUp(email, password);
-      state = state.copyWith(
-        isLoading: false,
-        successMessage: 'accountCreatedSuccessfully',
-      );
-      return true;
-    } on AuthException catch (e) {
-      state = state.copyWith(isLoading: false, error: _getErrorMessage(e));
-      return false;
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: 'unexpectedError');
-      return false;
-    }
+    return _loadingNotifier.withLoading(() async {
+      try {
+        await _authRepository.signUp(email, password);
+        state = state.copyWith(successMessage: 'accountCreatedSuccessfully');
+        return true;
+      } on AuthException catch (e) {
+        state = state.copyWith(error: _getErrorMessage(e));
+        return false;
+      } catch (e) {
+        state = state.copyWith(error: 'unexpectedError');
+        return false;
+      }
+    });
   }
 
   Future<bool> signInWithGoogle() async {
-    state = state.copyWith(
-      isLoading: true,
-      clearError: true,
-      clearSuccess: true,
-    );
+    state = state.copyWith(clearError: true, clearSuccess: true);
 
-    try {
-      final success = await _authRepository.signInWithGoogle();
-      state = state.copyWith(isLoading: false);
-      return success;
-    } on AuthException catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        error: _getGoogleErrorMessage(e),
-      );
-      return false;
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: 'googleSignInFailed');
-      return false;
-    }
+    return _loadingNotifier.withLoading(() async {
+      try {
+        final success = await _authRepository.signInWithGoogle();
+        return success;
+      } on AuthException catch (e) {
+        state = state.copyWith(error: _getGoogleErrorMessage(e));
+        return false;
+      } catch (e) {
+        state = state.copyWith(error: 'googleSignInFailed');
+        return false;
+      }
+    });
   }
 
   Future<bool> signInWithApple() async {
-    state = state.copyWith(
-      isLoading: true,
-      clearError: true,
-      clearSuccess: true,
-    );
+    state = state.copyWith(clearError: true, clearSuccess: true);
 
-    try {
-      final success = await _authRepository.signInWithApple();
-      state = state.copyWith(isLoading: false);
-      return success;
-    } on AuthException catch (e) {
-      state = state.copyWith(isLoading: false, error: _getAppleErrorMessage(e));
-      return false;
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: 'appleSignInFailed');
-      return false;
-    }
+    return _loadingNotifier.withLoading(() async {
+      try {
+        final success = await _authRepository.signInWithApple();
+        return success;
+      } on AuthException catch (e) {
+        state = state.copyWith(error: _getAppleErrorMessage(e));
+        return false;
+      } catch (e) {
+        state = state.copyWith(error: 'appleSignInFailed');
+        return false;
+      }
+    });
   }
 
   bool _validateInputs(String email, String password) {
@@ -151,21 +134,30 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   bool _validateEmail(String email) {
     return email.isNotEmpty &&
-        RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
+        RegExp(AppConstants.emailRegexPattern).hasMatch(email);
   }
 
   bool _validatePassword(String password) {
-    return password.length >= 6;
+    return password.length >= AppConstants.passwordMinLength;
   }
 
   String _getErrorMessage(AuthException e) {
     switch (e.message) {
       case 'Invalid login credentials':
-        return 'invalidEmailOrPassword';
       case 'Email not confirmed':
-        return 'pleaseVerifyEmail';
+        return 'invalidEmailOrPassword';
       case 'User already registered':
         return 'emailAlreadyExists';
+      case 'Signup disabled':
+        return 'signupDisabled';
+      case 'Email rate limit exceeded':
+        return 'emailRateLimit';
+      case 'Password should be at least 6 characters':
+        return 'passwordTooShort';
+      case 'Unable to validate email address: invalid format':
+        return 'invalidEmailFormat';
+      case 'User not found':
+        return 'userNotFound';
       default:
         return 'unexpectedError';
     }
@@ -176,6 +168,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
       case 'User cancelled the operation':
       case 'The user canceled the sign-in flow':
         return 'authenticationCancelled';
+      case 'Network error':
+        return 'networkError';
       default:
         return 'googleSignInFailed';
     }
@@ -186,6 +180,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
       case 'User cancelled the operation':
       case 'The user canceled the sign-in flow':
         return 'authenticationCancelled';
+      case 'Network error':
+        return 'networkError';
       default:
         return 'appleSignInFailed';
     }
@@ -201,5 +197,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
 }
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
-  return AuthNotifier(ref.watch(authRepositoryProvider));
+  return AuthNotifier(
+    ref.watch(authRepositoryProvider),
+    ref.read(globalLoadingStateProvider.notifier),
+  );
 });

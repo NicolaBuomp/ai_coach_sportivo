@@ -1,5 +1,5 @@
 import 'package:ai_coach_sportivo/src/core/config/l10n/app_localizations.dart';
-import 'package:ai_coach_sportivo/src/core/config/router/route_name.dart';
+import 'package:ai_coach_sportivo/src/core/constants/app_route_name.dart';
 import 'package:ai_coach_sportivo/src/features/onboarding/presentation/viewmodel/onboarding_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
