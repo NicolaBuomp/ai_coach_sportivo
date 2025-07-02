@@ -99,7 +99,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get pleaseConfirmPassword => 'Conferma la tua password';
 
   @override
-  String get passwordsDoNotMatch => 'Le password non coincidono';
+  String get passwordsDoNotMatch => 'Le password non coincidono.';
 
   @override
   String loginFailed(String error) {
@@ -459,4 +459,63 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get invalidEmailFormat => 'Formato email non valido';
+
+  @override
+  String get resetPassword => 'Reimposta Password';
+
+  @override
+  String get newPassword => 'Nuova Password';
+
+  @override
+  String get backToLogin => 'Torna al Login';
+
+  @override
+  String get useAnotherEmail => 'Usa un\'altra email';
+
+  @override
+  String get forgotPasswordTitle => 'Password Dimenticata';
+
+  @override
+  String get recoverPassword => 'Recupera Password';
+
+  @override
+  String get enterEmailForInstructions =>
+      'Inserisci la tua email per ricevere le istruzioni di recupero';
+
+  @override
+  String get sendRecoveryEmail => 'Invia Email di Recupero';
+
+  @override
+  String get emailSent => 'Email Inviata!';
+
+  @override
+  String get recoveryInstructionsSent =>
+      'Abbiamo inviato le istruzioni per il recupero password a:';
+
+  @override
+  String get checkEmail => 'Controlla Email';
+
+  @override
+  String get errorSendingRecoveryEmail =>
+      'Errore nell\'invio dell\'email di recupero';
+
+  @override
+  String get recoveryEmailInfo =>
+      'Riceverai un\'email con le istruzioni per reimpostare la tua password.';
+
+  @override
+  String get setNewPassword => 'Imposta una nuova password';
+
+  @override
+  String get pleaseEnterNewPassword => 'Inserisci una nuova password.';
+
+  @override
+  String get passwordMustBe6Characters =>
+      'La password deve essere di almeno 6 caratteri.';
+
+  @override
+  String get passwordUpdatedSuccessfully => 'Password aggiornata con successo!';
+
+  @override
+  String get unexpectedErrorOccurred => 'Si è verificato un errore imprevisto.';
 }

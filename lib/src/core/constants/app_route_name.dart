@@ -1,4 +1,4 @@
-const String homeRoute = '/home';
+const String homeRoute = '/';
 const String loginRoute = '/login';
 const String signUpRoute = '/signup';
 const String forgotPasswordRoute = '/forgot-password';

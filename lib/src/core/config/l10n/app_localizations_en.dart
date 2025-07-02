@@ -97,7 +97,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pleaseConfirmPassword => 'Please confirm your password';
 
   @override
-  String get passwordsDoNotMatch => 'Passwords do not match';
+  String get passwordsDoNotMatch => 'Passwords do not match.';
 
   @override
   String loginFailed(String error) {
@@ -456,4 +456,62 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get invalidEmailFormat => 'Invalid email format';
+
+  @override
+  String get resetPassword => 'Reset Password';
+
+  @override
+  String get newPassword => 'New Password';
+
+  @override
+  String get backToLogin => 'Back to Login';
+
+  @override
+  String get useAnotherEmail => 'Use another email';
+
+  @override
+  String get forgotPasswordTitle => 'Forgot Password';
+
+  @override
+  String get recoverPassword => 'Recover Password';
+
+  @override
+  String get enterEmailForInstructions =>
+      'Enter your email to receive recovery instructions';
+
+  @override
+  String get sendRecoveryEmail => 'Send Recovery Email';
+
+  @override
+  String get emailSent => 'Email Sent!';
+
+  @override
+  String get recoveryInstructionsSent =>
+      'We\'ve sent recovery instructions to:';
+
+  @override
+  String get checkEmail => 'Check Email';
+
+  @override
+  String get errorSendingRecoveryEmail => 'Error sending recovery email';
+
+  @override
+  String get recoveryEmailInfo =>
+      'You will receive an email with instructions to reset your password.';
+
+  @override
+  String get setNewPassword => 'Set a new password';
+
+  @override
+  String get pleaseEnterNewPassword => 'Please enter a new password.';
+
+  @override
+  String get passwordMustBe6Characters =>
+      'Password must be at least 6 characters.';
+
+  @override
+  String get passwordUpdatedSuccessfully => 'Password updated successfully!';
+
+  @override
+  String get unexpectedErrorOccurred => 'An unexpected error occurred.';
 }

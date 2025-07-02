@@ -134,9 +134,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             onPressed: isGlobalLoading
                                 ? null
                                 : () => context.go(forgotPasswordRoute),
-                            child: Text(
-                              'Password dimenticata?',
-                            ), // TODO: Add to localization
+                            child: Text(l10n.forgotPassword),
                           ),
                         ),
 

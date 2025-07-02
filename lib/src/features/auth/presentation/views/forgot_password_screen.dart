@@ -1,10 +1,10 @@
+import 'package:ai_coach_sportivo/src/core/config/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ai_coach_sportivo/src/core/constants/app_route_name.dart';
 import 'package:ai_coach_sportivo/src/core/constants/app_dimensions.dart';
 import 'package:ai_coach_sportivo/src/core/constants/app_durations.dart';
-import 'package:ai_coach_sportivo/src/core/constants/error_messages.dart';
 import 'package:ai_coach_sportivo/src/features/auth/data/auth_repository.dart';
 import 'package:ai_coach_sportivo/src/features/auth/presentation/widgets/auth_text_field.dart';
 import 'package:ai_coach_sportivo/src/features/auth/presentation/widgets/auth_buttons.dart';
@@ -53,6 +53,8 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
   Future<void> _sendResetEmail() async {
     if (!_formKey.currentState!.validate()) return;
 
+    final l10n = AppLocalizations.of(context)!;
+
     try {
       await LoadingService.withLoading(ref, () async {
         await ref
@@ -67,7 +69,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(ErrorMessages.passwordResetEmailSent),
+            content: Text(l10n.passwordResetEmailSent),
             backgroundColor: Theme.of(context).colorScheme.primary,
             duration: AppDurations.snackbar,
           ),
@@ -77,7 +79,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Errore nell\'invio dell\'email di recupero'),
+            content: Text(l10n.errorSendingRecoveryEmail),
             backgroundColor: Theme.of(context).colorScheme.error,
             duration: AppDurations.snackbar,
           ),
@@ -98,12 +100,13 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final isGlobalLoading = ref.watch(globalLoadingProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     return GlobalLoadingOverlay(
       isLoading: isGlobalLoading,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Password Dimenticata'),
+          title: Text(l10n.forgotPasswordTitle),
           centerTitle: true,
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -122,10 +125,9 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
 
                     if (!_emailSent) ...[
                       // Header
-                      const AuthHeader(
-                        title: 'Recupera Password',
-                        subtitle:
-                            'Inserisci la tua email per ricevere le istruzioni di recupero',
+                      AuthHeader(
+                        title: l10n.recoverPassword,
+                        subtitle: l10n.enterEmailForInstructions,
                       ),
 
                       const SizedBox(height: AppDimensions.spacing48),
@@ -133,17 +135,17 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
                       // Email field
                       AuthTextField(
                         controller: _emailController,
-                        labelText: 'Email',
+                        labelText: l10n.email,
                         prefixIcon: const Icon(Icons.email_outlined),
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.done,
                         enabled: !isGlobalLoading,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Inserisci la tua email';
+                            return l10n.pleaseEnterEmail;
                           }
                           if (!ValidationUtils.isValidEmail(value)) {
-                            return 'Inserisci una email valida';
+                            return l10n.pleaseEnterValidEmail;
                           }
                           return null;
                         },
@@ -154,7 +156,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
 
                       // Send button
                       PrimaryAuthButton(
-                        text: 'Invia Email di Recupero',
+                        text: l10n.sendRecoveryEmail,
                         onPressed: _sendResetEmail,
                         isLoading: false, // Usiamo solo il loading globale
                       ),
@@ -175,7 +177,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
                               ),
                               const SizedBox(height: AppDimensions.spacing8),
                               Text(
-                                'Riceverai un\'email con le istruzioni per reimpostare la tua password.',
+                                l10n.recoveryEmailInfo,
                                 style: theme.textTheme.bodyMedium?.copyWith(
                                   color: colorScheme.onSurfaceVariant,
                                 ),
@@ -209,7 +211,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
                           const SizedBox(height: AppDimensions.spacing32),
 
                           Text(
-                            'Email Inviata!',
+                            l10n.emailSent,
                             style: theme.textTheme.headlineSmall?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: colorScheme.onSurface,
@@ -220,7 +222,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
                           const SizedBox(height: AppDimensions.spacing16),
 
                           Text(
-                            'Abbiamo inviato le istruzioni per il recupero password a:',
+                            l10n.recoveryInstructionsSent,
                             style: theme.textTheme.bodyLarge?.copyWith(
                               color: colorScheme.onSurfaceVariant,
                             ),
@@ -242,7 +244,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
 
                           // Actions
                           PrimaryAuthButton(
-                            text: 'Controlla Email',
+                            text: l10n.checkEmail,
                             onPressed: () => context.goNamed(loginRoute),
                             isLoading: false,
                           ),
@@ -251,7 +253,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
 
                           OutlinedButton(
                             onPressed: _tryAgain,
-                            child: Text('Usa un\'altra Email'),
+                            child: Text(l10n.useAnotherEmail),
                           ),
                         ],
                       ),
@@ -262,7 +264,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
                     // Back to login
                     TextButton(
                       onPressed: () => context.goNamed(loginRoute),
-                      child: Text('Torna al Login'),
+                      child: Text(l10n.backToLogin),
                     ),
                   ],
                 ),

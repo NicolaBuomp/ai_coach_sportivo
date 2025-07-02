@@ -1,3 +1,4 @@
+import 'package:ai_coach_sportivo/src/core/config/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -60,7 +61,9 @@ class _EmailConfirmationScreenState
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Email di conferma inviata!'),
+            content: Text(
+              AppLocalizations.of(context)!.emailSentTo(widget.email),
+            ),
             backgroundColor: Theme.of(context).colorScheme.primary,
             duration: AppDurations.snackbar,
           ),
@@ -73,7 +76,9 @@ class _EmailConfirmationScreenState
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Errore nell\'invio della conferma'),
+            content: Text(
+              AppLocalizations.of(context)!.failedToResendEmail(e.toString()),
+            ),
             backgroundColor: Theme.of(context).colorScheme.error,
             duration: AppDurations.snackbar,
           ),
@@ -108,10 +113,11 @@ class _EmailConfirmationScreenState
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Conferma Email'),
+        title: Text(l10n.verifyYourEmail),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -146,7 +152,7 @@ class _EmailConfirmationScreenState
 
                       // Titolo
                       Text(
-                        'Controlla la tua email',
+                        l10n.verifyYourEmail,
                         style: theme.textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: colorScheme.onSurface,
@@ -158,7 +164,7 @@ class _EmailConfirmationScreenState
 
                       // Descrizione
                       Text(
-                        'Abbiamo inviato un\'email di conferma a:\n${widget.email}',
+                        l10n.emailSentTo(widget.email),
                         style: theme.textTheme.bodyLarge?.copyWith(
                           color: colorScheme.onSurfaceVariant,
                         ),
@@ -168,7 +174,7 @@ class _EmailConfirmationScreenState
                       const SizedBox(height: AppDimensions.spacing8),
 
                       Text(
-                        'Clicca sul link nell\'email per verificare il tuo account.',
+                        l10n.checkEmailAndClick,
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: colorScheme.onSurfaceVariant,
                         ),
@@ -198,50 +204,21 @@ class _EmailConfirmationScreenState
                                           ).colorScheme.primary,
                                           size: 16,
                                         )
-                                      : const Icon(Icons.refresh),
+                                      : const Icon(Icons.send_rounded),
                                   label: Text(
                                     _canResend
-                                        ? 'Invia di nuovo'
-                                        : 'Riprova fra $_countdown s',
+                                        ? l10n.resendEmail
+                                        : '${l10n.resendEmail} ($_countdown s)',
                                   ),
                                 ),
                               ),
-
                               const SizedBox(height: AppDimensions.spacing16),
-
-                              // Info text
-                              Container(
-                                padding: const EdgeInsets.all(
-                                  AppDimensions.spacing12,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: colorScheme.primaryContainer
-                                      .withValues(alpha: 0.3),
-                                  borderRadius: BorderRadius.circular(
-                                    AppDimensions.radiusS,
-                                  ),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.info_outline,
-                                      color: colorScheme.primary,
-                                      size: 20,
-                                    ),
-                                    const SizedBox(
-                                      width: AppDimensions.spacing8,
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        'Non hai ricevuto l\'email? Controlla la cartella spam o richiedi un nuovo invio.',
-                                        style: theme.textTheme.bodySmall
-                                            ?.copyWith(
-                                              color:
-                                                  colorScheme.onSurfaceVariant,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
+                              SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton.icon(
+                                  onPressed: () => context.go(loginRoute),
+                                  icon: const Icon(Icons.arrow_back_rounded),
+                                  label: Text(l10n.backToLogin),
                                 ),
                               ),
                             ],
@@ -259,7 +236,7 @@ class _EmailConfirmationScreenState
                       width: double.infinity,
                       child: FilledButton(
                         onPressed: () => context.goNamed(loginRoute),
-                        child: Text('Torna al Login'),
+                        child: Text(l10n.backToLogin),
                       ),
                     ),
 
@@ -267,7 +244,7 @@ class _EmailConfirmationScreenState
 
                     TextButton(
                       onPressed: () => context.goNamed(signUpRoute),
-                      child: Text('Usa un\'altra email'),
+                      child: Text(l10n.useAnotherEmail),
                     ),
                   ],
                 ),

@@ -6,15 +6,12 @@ import 'package:ai_coach_sportivo/src/features/auth/presentation/views/login_scr
 import 'package:ai_coach_sportivo/src/features/auth/presentation/views/signup_screen.dart';
 import 'package:ai_coach_sportivo/src/features/auth/presentation/views/forgot_password_screen.dart';
 import 'package:ai_coach_sportivo/src/features/auth/presentation/views/email_confirmation_screen.dart';
+import 'package:ai_coach_sportivo/src/features/auth/presentation/views/reset_password_screen.dart';
 import 'package:ai_coach_sportivo/src/features/calendar/presentation/views/calendar_screen.dart';
 import 'package:ai_coach_sportivo/src/features/home/presentation/views/home_screen.dart';
 import 'package:ai_coach_sportivo/src/features/onboarding/data/onboarding_repository.dart';
 import 'package:ai_coach_sportivo/src/features/onboarding/presentation/views/onboarding_screen.dart';
 import 'package:ai_coach_sportivo/src/features/plans/presentation/views/plans_screen.dart';
-import 'package:ai_coach_sportivo/src/features/profile/data/repositories/profile_repository.dart';
-import 'package:ai_coach_sportivo/src/features/profile/presentation/views/complete_profile_screen.dart';
-import 'package:ai_coach_sportivo/src/features/profile/presentation/views/edit_profile_screen.dart';
-import 'package:ai_coach_sportivo/src/features/profile/presentation/views/profile_screen.dart';
 import 'package:ai_coach_sportivo/src/features/settings/presentation/views/settings_screen.dart';
 import 'package:ai_coach_sportivo/src/features/training/presentation/views/training_screen.dart';
 import 'package:ai_coach_sportivo/src/shared/widgets/common/main_scaffold.dart';
@@ -28,7 +25,6 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 final routerProvider = Provider<GoRouter>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   final onboardingRepository = ref.watch(onboardingRepositoryProvider);
-  final profileRepository = ref.watch(profileRepositoryProvider);
 
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
@@ -46,11 +42,13 @@ final routerProvider = Provider<GoRouter>((ref) {
 
       final user = authRepository.currentUser;
       final isLoggedIn = user != null && user.emailConfirmedAt != null;
-      final onAuthPages =
-          state.matchedLocation == loginRoute ||
-          state.matchedLocation == signUpRoute;
-      final onCompleteProfilePage =
-          state.matchedLocation == completeProfileRoute;
+
+      final onAuthPages = [
+        loginRoute,
+        signUpRoute,
+        forgotPasswordRoute,
+        emailConfirmationRoute,
+      ].contains(state.matchedLocation);
 
       // Se l'onboarding è completo e l'utente è sulla pagina di onboarding,
       // reindirizzalo al login.
@@ -58,42 +56,15 @@ final routerProvider = Provider<GoRouter>((ref) {
         return loginRoute;
       }
 
+      // Se l'utente è loggato e cerca di accedere a pagine di autenticazione,
+      // reindirizzalo alla home.
+      if (isLoggedIn && onAuthPages) {
+        return homeRoute;
+      }
+
       // Se non è autenticato e non è su pagine di auth, vai al login
       if (!isLoggedIn && !onAuthPages) {
         return loginRoute;
-      }
-
-      // Se è autenticato e è su pagine di auth, controlla il profilo
-      if (isLoggedIn && onAuthPages) {
-        try {
-          final isProfileComplete = await profileRepository.isProfileComplete();
-          return isProfileComplete ? homeRoute : completeProfileRoute;
-        } catch (e) {
-          return completeProfileRoute;
-        }
-      }
-
-      // Se è autenticato e non è sulla pagina di completamento profilo,
-      // verifica che il profilo sia completo
-      if (isLoggedIn && !onCompleteProfilePage) {
-        try {
-          final isProfileComplete = await profileRepository.isProfileComplete();
-          if (!isProfileComplete) {
-            return completeProfileRoute;
-          }
-        } catch (e) {
-          return completeProfileRoute;
-        }
-      }
-
-      // Se va alla root e è autenticato, controlla il profilo
-      if (isLoggedIn && state.matchedLocation == '/') {
-        try {
-          final isProfileComplete = await profileRepository.isProfileComplete();
-          return isProfileComplete ? homeRoute : completeProfileRoute;
-        } catch (e) {
-          return completeProfileRoute;
-        }
       }
 
       return null;
@@ -120,17 +91,17 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const ForgotPasswordScreen(),
       ),
       GoRoute(
+        path: resetPasswordRoute,
+        name: resetPasswordRoute,
+        builder: (context, state) => const ResetPasswordScreen(),
+      ),
+      GoRoute(
         path: emailConfirmationRoute,
         name: emailConfirmationRoute,
         builder: (context, state) {
           final email = state.uri.queryParameters['email'] ?? '';
           return EmailConfirmationScreen(email: email);
         },
-      ),
-      GoRoute(
-        path: completeProfileRoute,
-        name: completeProfileRoute,
-        builder: (context, state) => const CompleteProfileScreen(),
       ),
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
@@ -163,11 +134,6 @@ final routerProvider = Provider<GoRouter>((ref) {
             name: calendarRoute,
             builder: (context, state) => const CalendarScreen(),
           ),
-          GoRoute(
-            path: profileRoute,
-            name: profileRoute,
-            builder: (context, state) => const ProfileScreen(),
-          ),
         ],
       ),
       // fuori dal MainScaffold
@@ -175,11 +141,6 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: settingsRoute,
         name: settingsRoute,
         builder: (context, state) => const SettingsScreen(),
-      ),
-      GoRoute(
-        path: editProfileRoute,
-        name: editProfileRoute,
-        builder: (context, state) => const EditProfileScreen(),
       ),
     ],
   );

@@ -1,4 +1,5 @@
 import 'package:ai_coach_sportivo/src/core/config/l10n/app_localizations.dart';
+import 'package:ai_coach_sportivo/src/features/auth/data/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -41,6 +42,13 @@ class HomeScreen extends ConsumerWidget {
                 ),
               ),
             ],
+          ),
+          const SizedBox(height: 24),
+          ElevatedButton(
+            onPressed: () {
+              ref.read(authRepositoryProvider).signOut();
+            },
+            child: Text(l10n.logout),
           ),
         ],
       ),

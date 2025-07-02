@@ -269,7 +269,7 @@ abstract class AppLocalizations {
   /// No description provided for @passwordsDoNotMatch.
   ///
   /// In en, this message translates to:
-  /// **'Passwords do not match'**
+  /// **'Passwords do not match.'**
   String get passwordsDoNotMatch;
 
   /// No description provided for @loginFailed.
@@ -949,6 +949,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Invalid email format'**
   String get invalidEmailFormat;
+
+  /// No description provided for @resetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPassword;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPassword;
+
+  /// No description provided for @backToLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Login'**
+  String get backToLogin;
+
+  /// No description provided for @useAnotherEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Use another email'**
+  String get useAnotherEmail;
+
+  /// No description provided for @forgotPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password'**
+  String get forgotPasswordTitle;
+
+  /// No description provided for @recoverPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Recover Password'**
+  String get recoverPassword;
+
+  /// No description provided for @enterEmailForInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email to receive recovery instructions'**
+  String get enterEmailForInstructions;
+
+  /// No description provided for @sendRecoveryEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Recovery Email'**
+  String get sendRecoveryEmail;
+
+  /// No description provided for @emailSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Sent!'**
+  String get emailSent;
+
+  /// No description provided for @recoveryInstructionsSent.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ve sent recovery instructions to:'**
+  String get recoveryInstructionsSent;
+
+  /// No description provided for @checkEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Email'**
+  String get checkEmail;
+
+  /// No description provided for @errorSendingRecoveryEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Error sending recovery email'**
+  String get errorSendingRecoveryEmail;
+
+  /// No description provided for @recoveryEmailInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'You will receive an email with instructions to reset your password.'**
+  String get recoveryEmailInfo;
+
+  /// No description provided for @setNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a new password'**
+  String get setNewPassword;
+
+  /// No description provided for @pleaseEnterNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a new password.'**
+  String get pleaseEnterNewPassword;
+
+  /// No description provided for @passwordMustBe6Characters.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 6 characters.'**
+  String get passwordMustBe6Characters;
+
+  /// No description provided for @passwordUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Password updated successfully!'**
+  String get passwordUpdatedSuccessfully;
+
+  /// No description provided for @unexpectedErrorOccurred.
+  ///
+  /// In en, this message translates to:
+  /// **'An unexpected error occurred.'**
+  String get unexpectedErrorOccurred;
 }
 
 class _AppLocalizationsDelegate
