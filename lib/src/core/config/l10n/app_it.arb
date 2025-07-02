@@ -195,9 +195,16 @@
   "errorSendingRecoveryEmail": "Errore nell'invio dell'email di recupero",
   "recoveryEmailInfo": "Riceverai un'email con le istruzioni per reimpostare la tua password.",
   "setNewPassword": "Imposta una nuova password",
+  "enterNewPasswordInstructions": "Inserisci una nuova password per proteggere il tuo account",
+  "passwordSecurityInfo": "La tua password dovrebbe essere di almeno 6 caratteri e unica per questo account.",
   "pleaseEnterNewPassword": "Inserisci una nuova password.",
   "passwordMustBe6Characters": "La password deve essere di almeno 6 caratteri.",
   "passwordsDoNotMatch": "Le password non coincidono.",
   "passwordUpdatedSuccessfully": "Password aggiornata con successo!",
-  "unexpectedErrorOccurred": "Si è verificato un errore imprevisto."
+  "unexpectedErrorOccurred": "Si è verificato un errore imprevisto.",
+  "keyboardDismiss": "Tocca ovunque per chiudere la tastiera",
+  "swipeToNavigate": "Scorri per navigare tra le pagine",
+  "tapToContinue": "Tocca per continuare",
+  "almostDone": "Quasi fatto!",
+  "completeSetup": "Completa la configurazione per iniziare"
 }

@@ -503,6 +503,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setNewPassword => 'Set a new password';
 
   @override
+  String get enterNewPasswordInstructions =>
+      'Enter a new password to secure your account';
+
+  @override
+  String get passwordSecurityInfo =>
+      'Your password should be at least 6 characters long and unique to this account.';
+
+  @override
   String get pleaseEnterNewPassword => 'Please enter a new password.';
 
   @override
@@ -514,4 +522,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unexpectedErrorOccurred => 'An unexpected error occurred.';
+
+  @override
+  String get keyboardDismiss => 'Tap anywhere to dismiss keyboard';
+
+  @override
+  String get swipeToNavigate => 'Swipe to navigate between pages';
+
+  @override
+  String get tapToContinue => 'Tap to continue';
+
+  @override
+  String get almostDone => 'Almost done!';
+
+  @override
+  String get completeSetup => 'Complete setup to get started';
 }

@@ -507,6 +507,14 @@ class AppLocalizationsIt extends AppLocalizations {
   String get setNewPassword => 'Imposta una nuova password';
 
   @override
+  String get enterNewPasswordInstructions =>
+      'Inserisci una nuova password per proteggere il tuo account';
+
+  @override
+  String get passwordSecurityInfo =>
+      'La tua password dovrebbe essere di almeno 6 caratteri e unica per questo account.';
+
+  @override
   String get pleaseEnterNewPassword => 'Inserisci una nuova password.';
 
   @override
@@ -518,4 +526,19 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get unexpectedErrorOccurred => 'Si è verificato un errore imprevisto.';
+
+  @override
+  String get keyboardDismiss => 'Tocca ovunque per chiudere la tastiera';
+
+  @override
+  String get swipeToNavigate => 'Scorri per navigare tra le pagine';
+
+  @override
+  String get tapToContinue => 'Tocca per continuare';
+
+  @override
+  String get almostDone => 'Quasi fatto!';
+
+  @override
+  String get completeSetup => 'Completa la configurazione per iniziare';
 }

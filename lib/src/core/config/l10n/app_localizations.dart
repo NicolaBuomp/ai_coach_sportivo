@@ -1034,6 +1034,18 @@ abstract class AppLocalizations {
   /// **'Set a new password'**
   String get setNewPassword;
 
+  /// No description provided for @enterNewPasswordInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a new password to secure your account'**
+  String get enterNewPasswordInstructions;
+
+  /// No description provided for @passwordSecurityInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password should be at least 6 characters long and unique to this account.'**
+  String get passwordSecurityInfo;
+
   /// No description provided for @pleaseEnterNewPassword.
   ///
   /// In en, this message translates to:
@@ -1057,6 +1069,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'An unexpected error occurred.'**
   String get unexpectedErrorOccurred;
+
+  /// No description provided for @keyboardDismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap anywhere to dismiss keyboard'**
+  String get keyboardDismiss;
+
+  /// No description provided for @swipeToNavigate.
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe to navigate between pages'**
+  String get swipeToNavigate;
+
+  /// No description provided for @tapToContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to continue'**
+  String get tapToContinue;
+
+  /// No description provided for @almostDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Almost done!'**
+  String get almostDone;
+
+  /// No description provided for @completeSetup.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete setup to get started'**
+  String get completeSetup;
 }
 
 class _AppLocalizationsDelegate

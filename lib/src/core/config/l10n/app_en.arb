@@ -195,9 +195,16 @@
   "errorSendingRecoveryEmail": "Error sending recovery email",
   "recoveryEmailInfo": "You will receive an email with instructions to reset your password.",
   "setNewPassword": "Set a new password",
+  "enterNewPasswordInstructions": "Enter a new password to secure your account",
+  "passwordSecurityInfo": "Your password should be at least 6 characters long and unique to this account.",
   "pleaseEnterNewPassword": "Please enter a new password.",
   "passwordMustBe6Characters": "Password must be at least 6 characters.",
   "passwordsDoNotMatch": "Passwords do not match.",
   "passwordUpdatedSuccessfully": "Password updated successfully!",
-  "unexpectedErrorOccurred": "An unexpected error occurred."
+  "unexpectedErrorOccurred": "An unexpected error occurred.",
+  "keyboardDismiss": "Tap anywhere to dismiss keyboard",
+  "swipeToNavigate": "Swipe to navigate between pages",
+  "tapToContinue": "Tap to continue",
+  "almostDone": "Almost done!",
+  "completeSetup": "Complete setup to get started"
 }
