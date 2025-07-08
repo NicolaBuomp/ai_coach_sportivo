@@ -11,10 +11,16 @@ Future<void> main() async {
 
   await dotenv.load(fileName: ".env");
 
-  await Supabase.initialize(
-    url: dotenv.env['SUPABASE_URL']!,
-    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
-  );
+  final supabaseUrl = dotenv.env['SUPABASE_URL'];
+  final supabaseAnonKey = dotenv.env['SUPABASE_ANON_KEY'];
+
+  if (supabaseUrl == null || supabaseAnonKey == null) {
+    throw Exception(
+      'ERRORE FATALE: Le variabili SUPABASE_URL o SUPABASE_ANON_KEY non sono state trovate nel file .env',
+    );
+  }
+
+  await Supabase.initialize(url: supabaseUrl, anonKey: supabaseAnonKey);
 
   final sharedPreferences = await SharedPreferences.getInstance();
 
