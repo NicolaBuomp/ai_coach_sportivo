@@ -36,7 +36,7 @@ class _EmailConfirmationScreenState
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: AppDurations.slow,
+      duration: AppDurations.ms500,
       vsync: this,
     );
     _pulseController = AnimationController(
@@ -148,7 +148,7 @@ class _EmailConfirmationScreenState
             child: LayoutBuilder(
               builder: (context, constraints) {
                 return SingleChildScrollView(
-                  padding: const EdgeInsets.all(AppDimensions.paddingL),
+                  padding: const EdgeInsets.all(AppDimensions.spacingL),
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
                       minHeight: constraints.maxHeight,
@@ -232,7 +232,7 @@ class _EmailConfirmationScreenState
                                   elevation: 2,
                                   child: Padding(
                                     padding: const EdgeInsets.all(
-                                      AppDimensions.paddingL,
+                                      AppDimensions.spacingL,
                                     ),
                                     child: Column(
                                       children: [

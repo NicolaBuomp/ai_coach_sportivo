@@ -2,6 +2,7 @@ import 'package:ai_coach_sportivo/src/features/auth/presentation/widgets/passwor
 import 'package:flutter/material.dart';
 import 'package:ai_coach_sportivo/src/core/constants/app_dimensions.dart';
 import 'package:ai_coach_sportivo/src/core/constants/app_durations.dart';
+import 'package:ai_coach_sportivo/src/core/constants/app_curves.dart';
 
 /// Widget riutilizzabile per i campi password con visibilità toggleabile
 class PasswordTextField extends StatefulWidget {
@@ -44,11 +45,11 @@ class _PasswordTextFieldState extends State<PasswordTextField>
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: AppDurations.normal,
+      duration: AppDurations.ms300,
       vsync: this,
     );
     _animation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+      CurvedAnimation(parent: _animationController, curve: AppCurves.standard),
     );
   }
 
@@ -76,7 +77,7 @@ class _PasswordTextFieldState extends State<PasswordTextField>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AnimatedContainer(
-          duration: AppDurations.normal,
+          duration: AppDurations.ms300,
           child: TextFormField(
             controller: widget.controller,
             obscureText: _obscureText,
@@ -90,7 +91,7 @@ class _PasswordTextFieldState extends State<PasswordTextField>
                 builder: (context, child) {
                   return IconButton(
                     icon: AnimatedSwitcher(
-                      duration: AppDurations.fast,
+                      duration: AppDurations.ms200,
                       child: Icon(
                         _obscureText ? Icons.visibility : Icons.visibility_off,
                         key: ValueKey(_obscureText),
@@ -109,9 +110,9 @@ class _PasswordTextFieldState extends State<PasswordTextField>
               helperText: widget.helperText,
               filled: true,
               fillColor: Theme.of(context).colorScheme.surface,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.paddingM,
-                vertical: AppDimensions.paddingS,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: AppDimensions.spacingM,
+                vertical: AppDimensions.spacingS,
               ),
             ),
             validator: widget.validator,

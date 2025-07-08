@@ -1,4 +1,5 @@
 import 'package:ai_coach_sportivo/src/core/config/l10n/app_localizations.dart';
+import 'package:ai_coach_sportivo/src/core/constants/app_curves.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -35,12 +36,13 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: AppDurations.slow,
+      duration: AppDurations.ms500,
       vsync: this,
     );
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+      CurvedAnimation(parent: _animationController, curve: AppCurves.standard),
     );
+
     _animationController.forward();
   }
 
@@ -117,7 +119,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
             opacity: _fadeAnimation,
             child: SafeArea(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(AppDimensions.paddingL),
+                padding: const EdgeInsets.all(AppDimensions.spacingL),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -132,7 +134,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
                           subtitle: l10n.enterEmailForInstructions,
                         ),
 
-                        const SizedBox(height: AppDimensions.spacing48),
+                        const SizedBox(height: AppDimensions.spacingXXXL),
 
                         // Email field
                         AuthTextField(
@@ -154,7 +156,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
                           onFieldSubmitted: (_) => _sendResetEmail(),
                         ),
 
-                        const SizedBox(height: AppDimensions.spacing32),
+                        const SizedBox(height: AppDimensions.spacingXXL),
 
                         // Send button
                         PrimaryAuthButton(
@@ -163,14 +165,14 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
                           isLoading: false, // Usiamo solo il loading globale
                         ),
 
-                        const SizedBox(height: AppDimensions.spacing24),
+                        const SizedBox(height: AppDimensions.spacingXL),
 
                         // Info card
                         Card(
                           elevation: 1,
                           child: Padding(
                             padding: const EdgeInsets.all(
-                              AppDimensions.paddingM,
+                              AppDimensions.spacingM,
                             ),
                             child: Column(
                               children: [
@@ -179,7 +181,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
                                   color: colorScheme.primary,
                                   size: 24,
                                 ),
-                                const SizedBox(height: AppDimensions.spacing8),
+                                const SizedBox(height: AppDimensions.spacingS),
                                 Text(
                                   l10n.recoveryEmailInfo,
                                   style: theme.textTheme.bodyMedium?.copyWith(
@@ -195,7 +197,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
                         // Success state
                         Column(
                           children: [
-                            const SizedBox(height: AppDimensions.spacing48),
+                            const SizedBox(height: AppDimensions.spacingXXXL),
 
                             // Success icon
                             Container(
@@ -212,7 +214,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
                               ),
                             ),
 
-                            const SizedBox(height: AppDimensions.spacing32),
+                            const SizedBox(height: AppDimensions.spacingXXL),
 
                             Text(
                               l10n.emailSent,
@@ -223,7 +225,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
                               textAlign: TextAlign.center,
                             ),
 
-                            const SizedBox(height: AppDimensions.spacing16),
+                            const SizedBox(height: AppDimensions.spacingL),
 
                             Text(
                               l10n.recoveryInstructionsSent,
@@ -233,7 +235,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
                               textAlign: TextAlign.center,
                             ),
 
-                            const SizedBox(height: AppDimensions.spacing8),
+                            const SizedBox(height: AppDimensions.spacingS),
 
                             Text(
                               _emailController.text,
@@ -244,7 +246,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
                               textAlign: TextAlign.center,
                             ),
 
-                            const SizedBox(height: AppDimensions.spacing32),
+                            const SizedBox(height: AppDimensions.spacingXXL),
 
                             // Actions
                             PrimaryAuthButton(
@@ -253,7 +255,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
                               isLoading: false,
                             ),
 
-                            const SizedBox(height: AppDimensions.spacing16),
+                            const SizedBox(height: AppDimensions.spacingL),
 
                             OutlinedButton(
                               onPressed: _tryAgain,
@@ -263,7 +265,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen>
                         ),
                       ],
 
-                      const SizedBox(height: AppDimensions.spacing48),
+                      const SizedBox(height: AppDimensions.spacingXXXL),
 
                       // Back to login
                       TextButton(

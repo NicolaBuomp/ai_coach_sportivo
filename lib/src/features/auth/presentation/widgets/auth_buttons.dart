@@ -1,6 +1,7 @@
+import 'package:ai_coach_sportivo/src/core/constants/app_dimensions.dart';
 import 'package:flutter/material.dart';
 
-/// Widget riutilizzabile per i pulsanti di autenticazione social
+/// A reusable widget for social authentication buttons.
 class SocialAuthButton extends StatelessWidget {
   const SocialAuthButton({
     super.key,
@@ -21,40 +22,46 @@ class SocialAuthButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
     return SizedBox(
       width: double.infinity,
+      height: AppDimensions.buttonHeightL,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor:
-              backgroundColor ?? Theme.of(context).colorScheme.secondary,
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          backgroundColor: backgroundColor ?? colorScheme.surface,
+          foregroundColor: textColor ?? colorScheme.onSurface,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppDimensions.radiusM),
+            side: BorderSide(color: colorScheme.primary.withOpacity(0.2)),
+          ),
+          elevation: 0,
         ),
         onPressed: isLoading ? null : onPressed,
         child: isLoading
             ? SizedBox(
-                height: 20,
-                width: 20,
+                height: 24,
+                width: 24,
                 child: CircularProgressIndicator(
-                  strokeWidth: 2,
+                  strokeWidth: 3,
                   valueColor: AlwaysStoppedAnimation<Color>(
-                    textColor ?? Theme.of(context).colorScheme.onSecondary,
+                    textColor ?? colorScheme.primary,
                   ),
                 ),
               )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (icon != null) ...[icon!, const SizedBox(width: 8)],
+                  if (icon != null) ...[
+                    icon!,
+                    SizedBox(width: AppDimensions.spacingM),
+                  ],
                   Flexible(
                     child: Text(
                       text,
-                      style: TextStyle(
-                        color:
-                            textColor ??
-                            Theme.of(context).colorScheme.onSecondary,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                      style: textTheme.labelLarge?.copyWith(color: textColor),
                       maxLines: 1,
                       textAlign: TextAlign.center,
                     ),
@@ -66,7 +73,7 @@ class SocialAuthButton extends StatelessWidget {
   }
 }
 
-/// Widget riutilizzabile per il pulsante primario di autenticazione
+/// A reusable widget for the primary authentication button.
 class PrimaryAuthButton extends StatelessWidget {
   const PrimaryAuthButton({
     super.key,
@@ -83,19 +90,18 @@ class PrimaryAuthButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
+      height: AppDimensions.buttonHeightL,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 15),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        ),
         onPressed: isLoading ? null : onPressed,
         child: isLoading
-            ? const SizedBox(
-                height: 20,
-                width: 20,
+            ? SizedBox(
+                height: 24,
+                width: 24,
                 child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  strokeWidth: 3,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Theme.of(context).colorScheme.onPrimary,
+                  ),
                 ),
               )
             : Text(text),

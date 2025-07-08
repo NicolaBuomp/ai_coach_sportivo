@@ -26,7 +26,7 @@ class MainScaffold extends ConsumerWidget {
       body: child,
       extendBody: true,
       bottomNavigationBar: Container(
-        padding: EdgeInsets.only(top: AppDimensions.paddingS),
+        padding: EdgeInsets.only(top: AppDimensions.spacingS),
         decoration: BoxDecoration(
           border: Border(
             top: BorderSide(

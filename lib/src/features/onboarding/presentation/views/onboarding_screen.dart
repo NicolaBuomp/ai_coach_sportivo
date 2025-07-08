@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ai_coach_sportivo/src/core/constants/app_durations.dart';
+import 'package:ai_coach_sportivo/src/core/constants/app_curves.dart';
+import 'package:ai_coach_sportivo/src/core/constants/app_dimensions.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -27,23 +30,26 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
     super.initState();
     _pageController = PageController();
 
-    // Setup animazioni
+    // Setup animations
     _fadeController = AnimationController(
-      duration: const Duration(milliseconds: 600),
+      duration: AppDurations.ms500,
       vsync: this,
     );
     _slideController = AnimationController(
-      duration: const Duration(milliseconds: 800),
+      duration: AppDurations.ms800,
       vsync: this,
     );
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _fadeController, curve: Curves.easeInOut),
+      CurvedAnimation(parent: _fadeController, curve: AppCurves.standard),
     );
 
     _slideAnimation =
         Tween<Offset>(begin: const Offset(0, 0.3), end: Offset.zero).animate(
-          CurvedAnimation(parent: _slideController, curve: Curves.easeOutCubic),
+          CurvedAnimation(
+            parent: _slideController,
+            curve: AppCurves.fastOutSlowIn,
+          ),
         );
 
     // Avvia le animazioni
@@ -130,7 +136,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                 children: [
                   // Header con skip button
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(AppDimensions.spacingL),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -140,9 +146,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                             Icon(
                               Icons.smart_toy_outlined,
                               color: Theme.of(context).colorScheme.primary,
-                              size: 24,
+                              size: AppDimensions.iconM,
                             ),
-                            const SizedBox(width: 8),
+                            const SizedBox(width: AppDimensions.spacingXS),
                             Text(
                               l10n.appTitle,
                               style: Theme.of(context).textTheme.titleMedium
@@ -176,7 +182,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
 
                   // Bottom navigation
                   Container(
-                    padding: const EdgeInsets.all(24.0),
+                    padding: const EdgeInsets.all(AppDimensions.spacingXL),
                     child: Column(
                       children: [
                         // Page indicators
@@ -191,44 +197,38 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                           ),
                         ),
 
-                        const SizedBox(height: 32),
+                        const SizedBox(height: AppDimensions.spacingXXL),
 
                         // Navigation buttons
                         Row(
                           children: [
                             // Back button
                             if (state.currentPage > 0)
-                              Expanded(
-                                child: OutlinedButton(
-                                  onPressed: _previousPage,
-                                  child: Text(l10n.cancel),
-                                ),
-                              )
-                            else
-                              const Expanded(child: SizedBox()),
-
-                            if (state.currentPage > 0)
-                              const SizedBox(width: 16),
-
-                            // Next/Get Started button
-                            Expanded(
-                              flex: 2,
-                              child: ElevatedButton(
-                                onPressed: _nextPage,
-                                child: Text(
-                                  state.currentPage ==
-                                          onboardingPages.length - 1
-                                      ? l10n.getStarted
-                                      : l10n.next,
+                              IconButton(
+                                onPressed: _previousPage,
+                                icon: Icon(
+                                  Icons.arrow_back,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  size: AppDimensions.iconM,
                                 ),
                               ),
+                            const Spacer(),
+                            ElevatedButton(
+                              onPressed: _nextPage,
+                              child: Text(
+                                state.currentPage < onboardingPages.length - 1
+                                    ? l10n.next
+                                    : l10n.getStarted,
+                              ),
                             ),
+                            const SizedBox(height: AppDimensions.spacingXL),
                           ],
                         ),
 
-                        const SizedBox(height: 16),
-
                         // Hint text
+                        const SizedBox(
+                          height: AppDimensions.spacingM,
+                        ), // spacing between nav and hint
                         Text(
                           l10n.swipeToNavigate,
                           style: Theme.of(context).textTheme.bodySmall

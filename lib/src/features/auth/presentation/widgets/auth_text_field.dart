@@ -32,7 +32,7 @@ class AuthTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: AppDurations.normal,
+      duration: AppDurations.ms300,
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,
@@ -48,8 +48,8 @@ class AuthTextField extends StatelessWidget {
           filled: true,
           fillColor: Theme.of(context).colorScheme.surface,
           contentPadding: const EdgeInsets.symmetric(
-            horizontal: AppDimensions.paddingM,
-            vertical: AppDimensions.paddingS,
+            horizontal: AppDimensions.spacingM,
+            vertical: AppDimensions.spacingS,
           ),
         ),
         validator: validator,

@@ -1,94 +1,65 @@
-/// Costanti per le dimensioni dell'app
+/// A collection of standardized dimensions for a modern, responsive UI (2025).
 class AppDimensions {
-  // === SPACING ===
-  static const double spacing2 = 2.0;
-  static const double spacing4 = 4.0;
-  static const double spacing8 = 8.0;
-  static const double spacing12 = 12.0;
-  static const double spacing16 = 16.0;
-  static const double spacing20 = 20.0;
-  static const double spacing24 = 24.0;
-  static const double spacing32 = 32.0;
-  static const double spacing40 = 40.0;
-  static const double spacing48 = 48.0;
-  static const double spacing56 = 56.0;
-  static const double spacing64 = 64.0;
+  // === SPACING & PADDING SYSTEM (based on a 4px grid) ===
+  static const double spacingXXS = 2.0; // 2px
+  static const double spacingXS = 4.0; // 4px
+  static const double spacingS = 8.0; // 8px
+  static const double spacingM = 12.0; // 12px
+  static const double spacingL = 16.0; // 16px
+  static const double spacingXL = 24.0; // 24px
+  static const double spacingXXL = 32.0; // 32px
+  static const double spacingXXXL = 48.0; // 48px
 
-  // === PADDING ===
-  static const double paddingXS = 4.0;
-  static const double paddingS = 8.0;
-  static const double paddingM = 16.0;
-  static const double paddingL = 24.0;
-  static const double paddingXL = 32.0;
-  static const double paddingXXL = 48.0;
-
-  // === MARGIN ===
-  static const double marginXS = 4.0;
-  static const double marginS = 8.0;
-  static const double marginM = 16.0;
-  static const double marginL = 24.0;
-  static const double marginXL = 32.0;
-  static const double marginXXL = 48.0;
+  // Legacy constants for backward compatibility
+  static const double spacing8 = spacingS;
+  static const double spacing16 = spacingL;
+  static const double spacing24 = spacingXL;
+  static const double spacing32 = spacingXXL;
+  static const double spacing48 = spacingXXXL;
 
   // === BORDER RADIUS ===
-  static const double radiusXS = 4.0;
   static const double radiusS = 8.0;
-  static const double radiusM = 12.0;
-  static const double radiusL = 16.0;
-  static const double radiusXL = 20.0;
-  static const double radiusXXL = 24.0;
-  static const double radiusCircle = 50.0;
+  static const double radiusM = 16.0;
+  static const double radiusL = 24.0;
+  static const double radiusXL = 32.0;
+  static const double radiusCircle = 100.0;
 
   // === ICON SIZES ===
-  static const double iconXS = 16.0;
-  static const double iconS = 20.0;
+  static const double iconS = 18.0;
   static const double iconM = 24.0;
   static const double iconL = 32.0;
   static const double iconXL = 40.0;
-  static const double iconXXL = 48.0;
 
   // === BUTTON HEIGHTS ===
-  static const double buttonHeightS = 32.0;
-  static const double buttonHeightM = 40.0;
-  static const double buttonHeightL = 48.0;
-  static const double buttonHeightXL = 56.0;
+  static const double buttonHeightS = 40.0;
+  static const double buttonHeightM = 48.0;
+  static const double buttonHeightL = 54.0;
+  static const double buttonHeightXL = 60.0;
 
-  // === APPBAR ===
-  static const double appBarHeight = 56.0;
-  static const double appBarElevation = 0.0; // Trasparente
+  // === APP BAR ===
+  static const double appBarHeight = 64.0;
+  static const double appBarElevation = 0.0;
   static const double appBarIconSize = 24.0;
 
   // === CARD DIMENSIONS ===
-  static const double cardElevation = 2.0;
-  static const double cardRadius = 12.0;
+  static const double cardRadius = 20.0;
   static const double cardPadding = 16.0;
 
   // === BOTTOM NAVIGATION ===
-  static const double bottomNavHeight = 60.0;
-  static const double bottomNavIconSize = 24.0;
+  static const double bottomNavHeight = 72.0;
+  static const double bottomNavIconSize = 28.0;
 
   // === FORM ELEMENTS ===
-  static const double inputHeight = 48.0;
-  static const double inputRadius = 12.0;
+  static const double inputRadius = 16.0;
   static const double inputPadding = 16.0;
 
   // === AVATAR SIZES ===
-  static const double avatarXS = 24.0;
   static const double avatarS = 32.0;
-  static const double avatarM = 40.0;
-  static const double avatarL = 56.0;
-  static const double avatarXL = 72.0;
-  static const double avatarXXL = 96.0;
+  static const double avatarM = 48.0;
+  static const double avatarL = 64.0;
+  static const double avatarXL = 96.0;
 
   // === SPORT SPECIFIC ===
-  static const double progressBarHeight = 8.0;
-  static const double progressBarRadius = 4.0;
-  static const double sportCardHeight = 120.0;
-  static const double statCardHeight = 80.0;
-  static const double activityCardHeight = 100.0;
-
-  // === GLASSMORPHISM ===
-  static const double glassBlur = 20.0;
-  static const double glassOpacity = 0.1;
-  static const double glassBorderWidth = 1.0;
+  static const double progressBarHeight = 10.0;
+  static const double progressBarRadius = 5.0;
 }

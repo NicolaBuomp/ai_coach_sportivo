@@ -1,173 +1,92 @@
 import 'package:flutter/material.dart';
 import '../config/theme/app_colors.dart';
 
-/// Gradienti personalizzati per l'app sportiva
+/// A collection of modern, sporty gradients for the app design system (2025).
 class AppGradients {
-  // === GRADIENTI PRIMARI ===
+  // === CORE GRADIENTS ===
+
+  /// A vibrant, modern gradient for primary buttons and key UI elements.
   static const LinearGradient primary = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [AppColors.primary, Color(0xFF1E88E5)],
+    colors: [AppColors.gradientStart, AppColors.gradientEnd],
   );
 
-  static const LinearGradient secondary = LinearGradient(
+  /// An energetic gradient for accents, highlights, and calls-to-action.
+  static const LinearGradient accent = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [AppColors.secondary, Color(0xFF37474F)],
+    colors: [AppColors.accentGradientStart, AppColors.accentGradientEnd],
   );
 
-  // === GRADIENTI SPORTIVI ===
+  // === UI & BACKGROUND GRADIENTS ===
 
-  /// Gradiente per attività cardio (rosso energico)
-  static const LinearGradient cardio = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Color(0xFFFF6B6B), Color(0xFFEE5A52)],
+  /// A subtle gradient for card backgrounds to add depth.
+  static final LinearGradient card = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [AppColors.lightSurface, AppColors.lightSurface.withOpacity(0.95)],
   );
 
-  /// Gradiente per forza/pesi (arancione potenza)
-  static const LinearGradient strength = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Color(0xFFFF9500), Color(0xFFFF7043)],
+  /// A subtle gradient for dark mode card backgrounds.
+  static final LinearGradient cardDark = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [AppColors.darkSurface, AppColors.darkSurface.withOpacity(0.95)],
   );
 
-  /// Gradiente per yoga/flessibilità (viola rilassante)
-  static const LinearGradient flexibility = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Color(0xFF9C27B0), Color(0xFF673AB7)],
-  );
-
-  /// Gradiente per corsa (verde natura)
-  static const LinearGradient running = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Color(0xFF4CAF50), Color(0xFF66BB6A)],
-  );
-
-  /// Gradiente per ciclismo (blu cielo)
-  static const LinearGradient cycling = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Color(0xFF2196F3), Color(0xFF42A5F5)],
-  );
-
-  /// Gradiente per nuoto (azzurro acqua)
-  static const LinearGradient swimming = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Color(0xFF00BCD4), Color(0xFF26C6DA)],
-  );
-
-  // === GRADIENTI UI ===
-
-  /// Gradiente per successo
-  static const LinearGradient success = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [AppColors.successColor, Color(0xFF66BB6A)],
-  );
-
-  /// Gradiente per errore
-  static const LinearGradient error = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [AppColors.errorColor, Color(0xFFE57373)],
-  );
-
-  /// Gradiente per warning
-  static const LinearGradient warning = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [AppColors.warningColor, Color(0xFFFFB74D)],
-  );
-
-  /// Gradiente per informazioni
-  static const LinearGradient info = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [AppColors.infoColor, Color(0xFF64B5F6)],
-  );
-
-  // === GRADIENTI GLASSMORPHISM ===
-
-  /// Gradiente glassmorphism chiaro
-  static LinearGradient get lightGlass => LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
+  /// A soft gradient for the main app background in light mode.
+  static final LinearGradient backgroundLight = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
     colors: [
-      Colors.white.withValues(alpha: 0.25),
-      Colors.white.withValues(alpha: 0.1),
+      AppColors.lightBackground,
+      AppColors.lightBackground.withOpacity(0.98),
+    ],
+    stops: const [0.0, 1.0],
+  );
+
+  /// A deep, subtle gradient for the main app background in dark mode.
+  static final LinearGradient backgroundDark = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      AppColors.almostBlack,
+      const Color(0xFF1A1A1A), // Slightly lighter than pure black
     ],
   );
 
-  /// Gradiente glassmorphism scuro
-  static LinearGradient get darkGlass => LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [
-      Colors.white.withValues(alpha: 0.15),
-      Colors.white.withValues(alpha: 0.05),
+  // === SPECIALTY GRADIENTS ===
+
+  /// A shimmer gradient for loading placeholders and skeleton screens.
+  static final LinearGradient shimmer = LinearGradient(
+    begin: const Alignment(-1.0, -0.5),
+    end: const Alignment(1.0, 0.5),
+    colors: <Color>[
+      AppColors.midGrey.withOpacity(0.1),
+      AppColors.midGrey.withOpacity(0.3),
+      AppColors.midGrey.withOpacity(0.1),
     ],
+    stops: const <double>[0.4, 0.5, 0.6],
   );
 
-  // === GRADIENTI SFONDO ===
-
-  /// Gradiente sfondo mattina
-  static const LinearGradient morning = LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [Color(0xFFFFE082), Color(0xFFFFCC02)],
+  /// A shimmer gradient for loading placeholders in dark mode.
+  static final LinearGradient shimmerDark = LinearGradient(
+    begin: const Alignment(-1.0, -0.5),
+    end: const Alignment(1.0, 0.5),
+    colors: <Color>[
+      AppColors.darkGrey.withOpacity(0.2),
+      AppColors.darkGrey.withOpacity(0.5),
+      AppColors.darkGrey.withOpacity(0.2),
+    ],
+    stops: const <double>[0.4, 0.5, 0.6],
   );
 
-  /// Gradiente sfondo sera
-  static const LinearGradient evening = LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [Color(0xFFFF7043), Color(0xFFD84315)],
+  /// A gradient overlay for images to ensure text readability.
+  static const LinearGradient imageOverlay = LinearGradient(
+    begin: Alignment.bottomCenter,
+    end: Alignment.topCenter,
+    colors: [Color(0xCC000000), Color(0x00000000)],
+    stops: [0.0, 0.6],
   );
-
-  /// Gradiente sfondo notte
-  static const LinearGradient night = LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [Color(0xFF303F9F), Color(0xFF1A237E)],
-  );
-
-  // === GRADIENTI ANIMATI ===
-
-  /// Lista di gradienti per animazioni cicliche
-  static const List<LinearGradient> animated = [
-    primary,
-    cardio,
-    strength,
-    running,
-    cycling,
-  ];
-
-  // === METODI HELPER ===
-
-  /// Crea un gradiente personalizzato con opacità
-  static LinearGradient createWithOpacity(
-    LinearGradient gradient,
-    double opacity,
-  ) {
-    return LinearGradient(
-      begin: gradient.begin,
-      end: gradient.end,
-      colors: gradient.colors
-          .map((color) => color.withValues(alpha: opacity))
-          .toList(),
-    );
-  }
-
-  /// Crea un gradiente radiale
-  static RadialGradient createRadial(
-    List<Color> colors, {
-    Alignment center = Alignment.center,
-    double radius = 0.5,
-  }) {
-    return RadialGradient(center: center, radius: radius, colors: colors);
-  }
 }

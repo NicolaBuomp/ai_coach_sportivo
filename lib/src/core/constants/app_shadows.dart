@@ -1,245 +1,101 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import '../config/theme/app_colors.dart';
 
-/// Ombre personalizzate per l'app sportiva
+/// A collection of modern, sporty shadows for the app design system (2025).
 class AppShadows {
-  // === OMBRE STANDARD ===
+  // === SUBTLE UI SHADOWS ===
 
-  /// Ombra leggera per elementi sottili
-  static const List<BoxShadow> light = [
+  /// A very light shadow for subtle depth on UI elements like cards or containers.
+  static final List<BoxShadow> subtle = [
     BoxShadow(
-      color: Color(0x0F000000),
-      offset: Offset(0, 1),
-      blurRadius: 3,
-      spreadRadius: 0,
+      color: AppColors.darkGrey.withOpacity(0.05),
+      offset: const Offset(0, 4),
+      blurRadius: 12,
+      spreadRadius: -2,
     ),
   ];
 
-  /// Ombra media per card e contenitori
-  static const List<BoxShadow> medium = [
+  /// A slightly more pronounced shadow for interactive elements or highlighted cards.
+  static final List<BoxShadow> medium = [
     BoxShadow(
-      color: Color(0x1A000000),
-      offset: Offset(0, 2),
-      blurRadius: 8,
-      spreadRadius: 0,
-    ),
-  ];
-
-  /// Ombra forte per elementi in evidenza
-  static const List<BoxShadow> strong = [
-    BoxShadow(
-      color: Color(0x26000000),
-      offset: Offset(0, 4),
+      color: AppColors.darkGrey.withOpacity(0.1),
+      offset: const Offset(0, 6),
       blurRadius: 16,
-      spreadRadius: 0,
+      spreadRadius: -4,
     ),
   ];
 
-  /// Ombra molto forte per modali e overlay
-  static const List<BoxShadow> veryStrong = [
+  /// A strong shadow for elevated elements like modals, dialogs, or floating action buttons.
+  static final List<BoxShadow> strong = [
     BoxShadow(
-      color: Color(0x33000000),
-      offset: Offset(0, 8),
+      color: AppColors.darkGrey.withOpacity(0.15),
+      offset: const Offset(0, 12),
       blurRadius: 24,
-      spreadRadius: 0,
+      spreadRadius: -6,
     ),
   ];
 
-  // === OMBRE COLORATE SPORTIVE ===
+  // === COLORED GLOW SHADOWS ===
 
-  /// Ombra con colore primario
-  static List<BoxShadow> get primary => [
+  /// A soft, colored glow effect using the primary color. Ideal for focused or active states.
+  static final List<BoxShadow> primaryGlow = [
     BoxShadow(
-      color: AppColors.primary.withValues(alpha: 0.25),
-      offset: const Offset(0, 4),
-      blurRadius: 12,
-      spreadRadius: 0,
-    ),
-  ];
-
-  /// Ombra per attività cardio
-  static const List<BoxShadow> cardio = [
-    BoxShadow(
-      color: Color(0x40FF6B6B),
-      offset: Offset(0, 4),
-      blurRadius: 12,
-      spreadRadius: 0,
-    ),
-  ];
-
-  /// Ombra per attività di forza
-  static const List<BoxShadow> strength = [
-    BoxShadow(
-      color: Color(0x40FF9500),
-      offset: Offset(0, 4),
-      blurRadius: 12,
-      spreadRadius: 0,
-    ),
-  ];
-
-  /// Ombra per yoga/flessibilità
-  static const List<BoxShadow> flexibility = [
-    BoxShadow(
-      color: Color(0x409C27B0),
-      offset: Offset(0, 4),
-      blurRadius: 12,
-      spreadRadius: 0,
-    ),
-  ];
-
-  /// Ombra per corsa
-  static const List<BoxShadow> running = [
-    BoxShadow(
-      color: Color(0x404CAF50),
-      offset: Offset(0, 4),
-      blurRadius: 12,
-      spreadRadius: 0,
-    ),
-  ];
-
-  // === OMBRE PER STATI ===
-
-  /// Ombra per successo
-  static List<BoxShadow> get success => [
-    BoxShadow(
-      color: AppColors.successColor.withValues(alpha: 0.25),
-      offset: const Offset(0, 4),
-      blurRadius: 12,
-      spreadRadius: 0,
-    ),
-  ];
-
-  /// Ombra per errore
-  static List<BoxShadow> get error => [
-    BoxShadow(
-      color: AppColors.errorColor.withValues(alpha: 0.25),
-      offset: const Offset(0, 4),
-      blurRadius: 12,
-      spreadRadius: 0,
-    ),
-  ];
-
-  /// Ombra per warning
-  static List<BoxShadow> get warning => [
-    BoxShadow(
-      color: AppColors.warningColor.withValues(alpha: 0.25),
-      offset: const Offset(0, 4),
-      blurRadius: 12,
-      spreadRadius: 0,
-    ),
-  ];
-
-  // === OMBRE GLASSMORPHISM ===
-
-  /// Ombra per effetto glassmorphism chiaro
-  static const List<BoxShadow> glassLight = [
-    BoxShadow(
-      color: Color(0x1A000000),
-      offset: Offset(0, 8),
-      blurRadius: 32,
-      spreadRadius: 0,
-    ),
-  ];
-
-  /// Ombra per effetto glassmorphism scuro
-  static const List<BoxShadow> glassDark = [
-    BoxShadow(
-      color: Color(0x33000000),
-      offset: Offset(0, 8),
-      blurRadius: 32,
-      spreadRadius: 0,
-    ),
-  ];
-
-  // === OMBRE INTERNE ===
-
-  /// Ombra interna leggera
-  static const List<BoxShadow> innerLight = [
-    BoxShadow(
-      color: Color(0x0D000000),
-      offset: Offset(0, 1),
-      blurRadius: 2,
-      spreadRadius: 0,
-    ),
-  ];
-
-  /// Ombra interna media
-  static const List<BoxShadow> innerMedium = [
-    BoxShadow(
-      color: Color(0x1A000000),
-      offset: Offset(0, 2),
-      blurRadius: 4,
-      spreadRadius: 0,
-    ),
-  ];
-
-  // === OMBRE PER BOTTONI ===
-
-  /// Ombra per bottoni normali
-  static const List<BoxShadow> button = [
-    BoxShadow(
-      color: Color(0x1A000000),
-      offset: Offset(0, 2),
-      blurRadius: 4,
-      spreadRadius: 0,
-    ),
-  ];
-
-  /// Ombra per bottoni premuti
-  static const List<BoxShadow> buttonPressed = [
-    BoxShadow(
-      color: Color(0x26000000),
-      offset: Offset(0, 1),
-      blurRadius: 2,
-      spreadRadius: 0,
-    ),
-  ];
-
-  /// Ombra per bottoni flottanti
-  static const List<BoxShadow> floating = [
-    BoxShadow(
-      color: Color(0x26000000),
-      offset: Offset(0, 6),
+      color: AppColors.primary.withOpacity(0.3),
+      offset: const Offset(0, 5),
       blurRadius: 20,
-      spreadRadius: 0,
+      spreadRadius: -5,
     ),
   ];
 
-  // === METODI HELPER ===
+  /// A vibrant glow effect using the accent color. Perfect for calls-to-action or special highlights.
+  static final List<BoxShadow> accentGlow = [
+    BoxShadow(
+      color: AppColors.accent.withOpacity(0.35),
+      offset: const Offset(0, 5),
+      blurRadius: 20,
+      spreadRadius: -5,
+    ),
+  ];
 
-  /// Crea un'ombra personalizzata
-  static List<BoxShadow> custom({
-    required Color color,
-    required Offset offset,
-    required double blurRadius,
-    double spreadRadius = 0,
-    double opacity = 1.0,
-  }) {
-    return [
-      BoxShadow(
-        color: color.withValues(alpha: opacity),
-        offset: offset,
-        blurRadius: blurRadius,
-        spreadRadius: spreadRadius,
-      ),
-    ];
-  }
+  /// A glow effect for success states.
+  static final List<BoxShadow> successGlow = [
+    BoxShadow(
+      color: AppColors.success.withOpacity(0.3),
+      offset: const Offset(0, 5),
+      blurRadius: 20,
+      spreadRadius: -5,
+    ),
+  ];
 
-  /// Crea un'ombra colorata basata su un colore
-  static List<BoxShadow> colored(
-    Color color, {
-    double opacity = 0.25,
-    Offset offset = const Offset(0, 4),
-    double blurRadius = 12,
-    double spreadRadius = 0,
-  }) {
-    return [
-      BoxShadow(
-        color: color.withValues(alpha: opacity),
-        offset: offset,
-        blurRadius: blurRadius,
-        spreadRadius: spreadRadius,
-      ),
-    ];
-  }
+  /// A glow effect for error states.
+  static final List<BoxShadow> errorGlow = [
+    BoxShadow(
+      color: AppColors.error.withOpacity(0.3),
+      offset: const Offset(0, 5),
+      blurRadius: 20,
+      spreadRadius: -5,
+    ),
+  ];
+
+  // === SPECIALTY SHADOWS ===
+
+  /// An inner shadow to create a pressed or inset effect on buttons or text fields.
+  static final List<BoxShadow> inner = [
+    BoxShadow(
+      color: AppColors.darkGrey.withOpacity(0.2),
+      // Note: Inner shadows are typically simulated and might require specific container setups.
+      // This is a standard shadow that can be used inside a decorated container.
+    ),
+  ];
+
+  /// A text shadow for better readability on complex backgrounds.
+  static const List<Shadow> text = [
+    Shadow(color: Color(0x4D000000), offset: Offset(0, 1), blurRadius: 3),
+  ];
+
+  /// A darker text shadow for light text on dark backgrounds.
+  static const List<Shadow> darkText = [
+    Shadow(color: Color(0x66000000), offset: Offset(0, 2), blurRadius: 4),
+  ];
 }

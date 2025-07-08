@@ -204,7 +204,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
                                       isLoading: false,
                                     ),
 
-                                    const SizedBox(height: 32),
+                                    const SizedBox(height: 14),
 
                                     // Divider per separare login social
                                     Row(
@@ -230,7 +230,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
                                       ],
                                     ),
 
-                                    const SizedBox(height: 24),
+                                    const SizedBox(height: 14),
 
                                     // Google login button
                                     SocialAuthButton(
